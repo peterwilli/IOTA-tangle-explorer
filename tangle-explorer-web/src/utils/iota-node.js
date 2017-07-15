@@ -27,6 +27,7 @@ var obj = {
 var iota = new IOTA({
     'provider': 'http://iota.bitfinex.com:80'
 });
+obj.iota = iota
 
 var refreshNodeInfo = function() {
   iota.api.getNodeInfo(function(error, success) {

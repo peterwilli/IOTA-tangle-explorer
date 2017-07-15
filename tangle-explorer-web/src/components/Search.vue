@@ -25,7 +25,12 @@ var iotaNode = require("@/utils/iota-node")
 export default {
   methods: {
     goTo(hash) {
-      this.$router.push(`/tx/${hash}`)
+      this.$router.push({
+        name:'Transaction',
+        params: {
+          hash
+        }
+      })
     },
     close() {
       this.results = null

@@ -74,14 +74,25 @@ export default {
   components: {
     Identicon
   },
+  methods: {
+    initTX() {
+      var _this = this
+      iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function(e, r) {
+        _this.tx = r[0]
+      })
+    }
+  },
   mounted() {
-    var _this = this
-    iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function (e, r) {
-      _this.tx = r[0]
-    })
+    this.initTX()
+  },
+  watch: {
+    '$route.params.hash': function() {
+      this.initTX()
+    }
   },
   data() {
     return {
+      hash: this.$route.params.hash,
       tx: null
     }
   }

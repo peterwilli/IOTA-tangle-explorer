@@ -15,7 +15,7 @@ window.customElements.define("ceri-icon", require("ceri-icon"))
 require('@/lib/iota')
 require("@/utils/iota-node")
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({

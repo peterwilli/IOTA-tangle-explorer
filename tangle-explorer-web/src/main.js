@@ -9,6 +9,8 @@ Vue.use(IOTAPlugin)
 
 // Styles (global)
 require('@/styles/layout.styl')
+require("document-register-element")
+window.customElements.define("ceri-icon", require("ceri-icon"))
 
 require('@/lib/iota')
 require("@/utils/iota-node")

@@ -8,7 +8,7 @@
 require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
 export default {
-  name: 'hello',
+  name: 'NodeInfo',
   data() {
     return {
       iotaNode: iotaNode,

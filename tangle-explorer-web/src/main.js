@@ -4,6 +4,9 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 
+// Styles (global)
+require('@/styles/layout.styl')
+
 require('@/lib/iota')
 require("@/utils/iota-node")
 

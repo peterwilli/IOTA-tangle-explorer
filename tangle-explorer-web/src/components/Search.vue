@@ -1,8 +1,8 @@
 <template lang="html">
   <form v-on:submit.prevent="onSubmit" class='search'>
-    <input @input="update" type='text' placeholder="Search transactions, adresses" />
+    <input @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
     <div class='results' v-if="results !== null">
-      <div class="result" v-for="result in results">
+      <div class="result" @click="goTo(result.hash);close();" v-for="result in results">
         <div class="cut-text hash">{{ result.hash }}</div>
         <div class="cut-text address">
           <ceri-icon name="fa-user"></ceri-icon>
@@ -24,6 +24,13 @@ var iotaNode = require("@/utils/iota-node")
 
 export default {
   methods: {
+    goTo(hash) {
+      this.$router.push(`/tx/${hash}`)
+    },
+    close() {
+      this.results = null
+      this.searchText = ''
+    },
     searchCallback(e, r) {
       this.results = r
     },
@@ -36,7 +43,8 @@ export default {
   },
   data() {
     return {
-      results: null
+      results: null,
+      searchText: ''
     }
   }
 }

@@ -1,17 +1,19 @@
 <template>
   <div class="hello">
-    <h1 v-if="iotaNode.nodeInfo.latestMilestone !== null">test: {{ iotaNode.nodeInfo.latestMilestone }}</h1>
+    <div class="container">
+      <node-info></node-info>
+    </div>
   </div>
 </template>
 
 <script>
-require('@/lib/iota')
-var iotaNode = require("@/utils/iota-node")
+import NodeInfo from '@/components/NodeInfo.vue'
 export default {
-  name: 'NodeInfo',
+  components: {
+    NodeInfo
+  },
   data() {
     return {
-      iotaNode: iotaNode,
       msg: 'Welcome to Your Vue.js App',
     };
   },

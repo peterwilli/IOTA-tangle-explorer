@@ -3,7 +3,9 @@
     <input @input="update" type='text' placeholder="Search transactions, adresses" />
     <div class='results' v-if="results !== null">
       <div class="result" v-for="result in results">
-        {{ result }}
+        <div class="cut-text hash">{{ result.hash }}</div>
+        <div class="cut-text address">{{ result.address }}</div>
+        <div class="cut-text time">{{ $relativeTimestamp(result.timestamp) }}</div>
       </div>
     </div>
   </form>
@@ -35,7 +37,14 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.results
+  position absolute
+  left 1px
+  right 1px
+  background #fff
+
 .search
+  position relative
   input
     border 1px solid #333
     padding 10px

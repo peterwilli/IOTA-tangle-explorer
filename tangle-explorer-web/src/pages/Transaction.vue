@@ -1,6 +1,7 @@
 <template lang="html">
   <div class='tx container' v-if="tx">
     <p align="center">
+      <identicon :seed='tx.address' :size="150"></identicon>
       <table class="wrap-table table table-striped">
         <tbody>
             <tr>
@@ -67,8 +68,12 @@
 <script>
 require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
+import Identicon from '@/components/Identicon.vue'
 
 export default {
+  components: {
+    Identicon
+  },
   mounted() {
     var _this = this
     iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function (e, r) {

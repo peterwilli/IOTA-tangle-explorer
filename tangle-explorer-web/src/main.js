@@ -12,6 +12,7 @@ require('@/styles/layout.styl')
 require("document-register-element")
 window.customElements.define("ceri-icon", require("ceri-icon"))
 
+require('@/lib/qrcode')
 require('@/lib/iota')
 require("@/utils/iota-node")
 require('@/lib/avatars')

@@ -1,5 +1,7 @@
 <template lang="html">
   <div class='tx container' v-if="tx">
+    <identi-qr :contents="getQRAddress(tx.address)"></identi-qr>
+
     <div class="tx-box">
       <div class='title'>
         <div class="right">
@@ -95,12 +97,17 @@
 require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
 import Identicon from '@/components/Identicon.vue'
+import IdentiQr from '@/components/IdentiQR.vue'
 
 export default {
   components: {
-    Identicon
+    Identicon,
+    IdentiQr
   },
   methods: {
+    getQRAddress() {
+      return '{"address":"'+ this.tx.address +'","amount":"","message":"","tag":""}'
+    },
     initTX() {
       var _this = this
       iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function(e, r) {

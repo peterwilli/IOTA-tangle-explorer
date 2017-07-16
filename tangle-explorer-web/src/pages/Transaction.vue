@@ -38,7 +38,7 @@
           Value
         </div>
         <div class="value">
-          {{ tx.value }}
+          <span class="iota-val">{{ tx.value }}</span>
         </div>
       </div>
       <div class="clearfix"></div>
@@ -52,7 +52,7 @@
           <div class="inputs">
             <div class="input" v-for="tx in txIO.inputs">
               <div class="hash mono-space">
-                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link> <span class="iota-val">{{ tx.value }}</span>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
           <div class="outputs">
             <div class="output" v-for="tx in txIO.outputs">
               <div class="hash mono-space">
-                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link> <span class="iota-val">{{ tx.value }}</span>
               </div>
             </div>
           </div>
@@ -155,15 +155,21 @@ export default {
         var outputs = []
         for(var i = 0; i < r.length; i++) {
           var tx = r[i]
-          var isInput = tx.currentIndex > 0
+          var isInput = tx.value < 0
+          var isOutput = tx.value > 0
           if(isInput) {
             inputs.push(tx)
           }
-          else {
+          else if(isOutput) {
             outputs.push(tx)
           }
         }
-        this.txIO = { inputs, outputs }
+        if(inputs.length + outputs.length === 0) {
+          this.txIO = null
+        }
+        else {
+          this.txIO = { inputs, outputs }
+        }
       })
     },
     getQRAddress() {

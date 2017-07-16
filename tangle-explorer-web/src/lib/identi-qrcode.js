@@ -148,7 +148,6 @@ var QRCode;
 
 				    return str;
 				  }
-					window.list = []
 				  return calcMD5;
 				}(),
         addData: function(data) {
@@ -156,10 +155,11 @@ var QRCode;
             this.dataList.push(newData);
             this.dataCache = null;
         },
+				shadeColor(color, percent) {
+						var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
+						return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
+				},
 				identiColor(row, col) {
-					if(this.isDark(row, col)) {
-						return '#000'
-					}
 					var hash = this.checksum(this.dataList[0].data)
 					var colors = ['#7fd7fc', '#dfe876', '#f25068', '#9fd59a']
 					var filteredColors = []
@@ -167,10 +167,12 @@ var QRCode;
 						filteredColors.push(colors[hash.charCodeAt(i) % colors.length])
 					}
 					var colHalf = Math.floor(Math.abs(Math.floor(this.moduleCount / 2) - (col)))
-					var rowIndex = (hash.charCodeAt((colHalf + row) % hash.length)) % this.moduleCount
-					if(window.list.length < this.moduleCount)
-						window.list.push(rowIndex)
-					return filteredColors[(rowIndex) % filteredColors.length]
+					var rowIndex = (hash.charCodeAt((colHalf * Math.ceil(row / 10)) % hash.length)) % this.moduleCount
+					var color = filteredColors[(rowIndex) % filteredColors.length]
+					if(this.isDark(row, col)) {
+						return this.shadeColor(color, -60)
+					}
+					return color
 				},
         isDark: function(row, col) {
             if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {

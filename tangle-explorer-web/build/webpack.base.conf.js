@@ -43,7 +43,8 @@ module.exports = {
         options: {
           icons: [
             "fa-user",
-            "fa-clock-o"
+            "fa-clock-o",
+            "fa-arrow-circle-o-right"
           ]
         }
       },

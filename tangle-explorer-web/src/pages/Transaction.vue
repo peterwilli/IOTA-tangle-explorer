@@ -2,6 +2,12 @@
   <div class='tx container' v-if="tx">
     <div class="tx-box">
       <div class='title'>
+        <div class="addr-box-title">
+          Address
+        </div>
+        <div class="tx-info-title">
+          Transaction Info
+        </div>
         <div class="right">
           <ceri-icon name="fa-clock-o"></ceri-icon> {{ $relativeTimestamp(tx.timestamp) }}
         </div>
@@ -17,7 +23,7 @@
       </div>
       <div class="tx-info">
         <div class="name">
-          Transaction ID
+          Hash
         </div>
         <div class="value mono-space">
           {{ tx.hash }}
@@ -33,6 +39,29 @@
         </div>
         <div class="value">
           {{ tx.value }}
+        </div>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <legend>
+      Transaction I/O
+    </legend>
+    <div class="tx-io" v-if="txIO">
+      <div class="inputs">
+        <div class="input" v-for="tx in txIO.inputs">
+          <div class="hash mono-space">
+            {{ tx.address }}
+          </div>
+        </div>
+      </div>
+      <div class="arrow">
+        <ceri-icon name="fa-arrow-circle-o-right"></ceri-icon>
+      </div>
+      <div class="outputs">
+        <div class="output" v-for="tx in txIO.outputs">
+          <div class="hash mono-space">
+            {{ tx.address }}
+          </div>
         </div>
       </div>
       <div class="clearfix"></div>
@@ -114,6 +143,23 @@ export default {
     IdentiQr
   },
   methods: {
+    getIOFromTX(tx) {
+      iotaNode.iota.api.findTransactionObjects({ bundles: [tx.bundle] }, (e, r) => {
+        var inputs = []
+        var outputs = []
+        for(var i = 0; i < r.length; i++) {
+          var tx = r[i]
+          var isInput = tx.currentIndex > 0
+          if(isInput) {
+            inputs.push(tx)
+          }
+          else {
+            outputs.push(tx)
+          }
+        }
+        this.txIO = { inputs, outputs }
+      })
+    },
     getQRAddress() {
       return '{"address":"'+ this.tx.address +'","amount":"","message":"","tag":""}'
     },
@@ -121,13 +167,7 @@ export default {
       var _this = this
       iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function(e, r) {
         _this.tx = r[0]
-        iotaNode.iota.api.findTransactionObjects({ bundles: [r[0].bundle] }, (e, r) => {
-          var first = r[0];
-          var val = first.value;
-          for(var i = 1; i < r.length; i++) {
-            console.log(r[i].value);
-          }
-        })
+        _this.getIOFromTX(r[0])
       })
     }
   },
@@ -141,6 +181,7 @@ export default {
   },
   data() {
     return {
+      txIO: null,
       hash: this.$route.params.hash,
       tx: null
     }
@@ -167,6 +208,24 @@ legend {
   color #595959
 }
 
+.tx-io
+  .inputs, .outputs
+    width 40%
+    word-break break-all
+
+  .inputs
+    float left
+
+  .outputs
+    float right
+
+  .arrow
+    float left
+    width 20%
+    font-size 50px
+    text-align center
+    color: #1fb02e
+
 .tx-box
   word-break break-all
   background #fff
@@ -191,6 +250,20 @@ legend {
       word-break break-all
 
   .title
+    height 40px
+
+    .tx-info-title, .addr-box-title
+      line-height 30px
+      font-weight bold
+
+    .tx-info-title
+      float left
+      width auto
+
+    .addr-box-title
+      float left
+      width 244px
+
     padding 5px
     background rgb(222, 222, 222)
     .left

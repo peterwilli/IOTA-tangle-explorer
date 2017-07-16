@@ -47,24 +47,28 @@
       Transaction I/O
     </legend>
     <div class="tx-io" v-if="txIO">
-      <div class="inputs">
-        <div class="input" v-for="tx in txIO.inputs">
-          <div class="hash mono-space">
-            <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+      <expand-box :max-height='250'>
+        <div slot="content" class="io-content">
+          <div class="inputs">
+            <div class="input" v-for="tx in txIO.inputs">
+              <div class="hash mono-space">
+                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="arrow">
-        <ceri-icon name="fa-arrow-circle-o-right"></ceri-icon>
-      </div>
-      <div class="outputs">
-        <div class="output" v-for="tx in txIO.outputs">
-          <div class="hash mono-space">
-            <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+          <div class="arrow">
+            <ceri-icon name="fa-arrow-circle-o-right"></ceri-icon>
           </div>
+          <div class="outputs">
+            <div class="output" v-for="tx in txIO.outputs">
+              <div class="hash mono-space">
+                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
         </div>
-      </div>
-      <div class="clearfix"></div>
+      </expand-box>
     </div>
     <legend>
       Transaction details
@@ -136,11 +140,13 @@ require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
+import ExpandBox from '@/components/ExpandBox.vue'
 
 export default {
   components: {
     Identicon,
-    IdentiQr
+    IdentiQr,
+    ExpandBox
   },
   methods: {
     getIOFromTX(tx) {

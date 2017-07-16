@@ -1,12 +1,5 @@
 <template lang="html">
   <div class='tx container' v-if="tx">
-    <br /><br />
-    <br />
-
-    <identi-qr :contents="getQRAddress(tx.address)"></identi-qr>
-    <br />
-    <br />
-
     <div class="tx-box">
       <div class='title'>
         <div class="right">
@@ -14,24 +7,35 @@
         </div>
         <div style="clear:both"></div>
       </div>
-      <table>
-        <tbody>
-            <tr>
-                <td width="20%">Transaction Hash</td>
-                <td width="50"></td>
-                <td class="val mono-space">{{ tx.hash }}</td>
-            </tr>
-            <tr>
-              <td width="20%">Address</td>
-              <td width="50">
-                <identicon :seed='tx.address' :size="50"></identicon>
-              </td>
-              <td>
-                <a :href="'/addr/' + tx.address">{{ tx.address }}</a>
-              </td>
-            </tr>
-        </tbody>
-      </table>
+      <div class="addr-box">
+        <div class="qr">
+          <identi-qr :size='500' :contents="tx.address"></identi-qr>
+        </div>
+        <div class="addr mono-space">
+          {{ tx.address }}
+        </div>
+      </div>
+      <div class="tx-info">
+        <div class="name">
+          Transaction ID
+        </div>
+        <div class="value mono-space">
+          {{ tx.hash }}
+        </div>
+        <div class="name">
+          Tag
+        </div>
+        <div class="value mono-space">
+          {{ tx.tag }}
+        </div>
+        <div class="name">
+          Value
+        </div>
+        <div class="value">
+          {{ tx.value }}
+        </div>
+      </div>
+      <div class="clearfix"></div>
     </div>
     <legend>
       Transaction details
@@ -117,6 +121,13 @@ export default {
       var _this = this
       iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function(e, r) {
         _this.tx = r[0]
+        iotaNode.iota.api.findTransactionObjects({ bundles: [r[0].bundle] }, (e, r) => {
+          var first = r[0];
+          var val = first.value;
+          for(var i = 1; i < r.length; i++) {
+            console.log(r[i].value);
+          }
+        })
       })
     }
   },
@@ -159,6 +170,25 @@ legend {
 .tx-box
   word-break break-all
   background #fff
+
+  .tx-info
+    width auto
+    padding 5px
+    overflow:hidden
+    .name
+      font-weight bold
+    .value
+      word-break break-all
+      font-size 15px
+
+  .addr-box
+    float left
+    width 244px
+    .qr
+      width 100%
+    .addr
+      font-size 15px
+      word-break break-all
 
   .title
     padding 5px

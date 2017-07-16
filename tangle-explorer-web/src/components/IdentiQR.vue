@@ -17,6 +17,11 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      qrcode: null
+    }
+  },
   watch: {
     contents() {
       this.updateQR()
@@ -24,11 +29,17 @@ export default {
   },
   methods: {
     updateQR() {
-      var qrcode = new QRCode(this.$refs.qrcode, {
+      if(this.qrcode !== null) {
+        this.qrcode.clear()
+        this.qrcode = null
+        this.$refs.qrcode.innerHTML = ""
+      }
+
+      this.qrcode = new QRCode(this.$refs.qrcode, {
       	text: this.contents,
       	width: this.size,
       	height: this.size,
-      	correctLevel : QRCode.CorrectLevel.L
+      	correctLevel : QRCode.CorrectLevel.M
       })
     }
   },

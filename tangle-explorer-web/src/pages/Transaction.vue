@@ -1,6 +1,11 @@
 <template lang="html">
   <div class='tx container' v-if="tx">
+    <br /><br />
+    <br />
+
     <identi-qr :contents="getQRAddress(tx.address)"></identi-qr>
+    <br />
+    <br />
 
     <div class="tx-box">
       <div class='title'>
@@ -63,15 +68,15 @@
           </tr>
           <tr>
               <td>Trunk Transaction Hash</td>
-              <td class="val mono-space"><a :href="'/tx/' + tx.trunkTransaction">{{ tx.trunkTransaction }}</a></td>
+              <td class="val mono-space"><router-link :to="{ name: 'Transaction', params: { hash: tx.trunkTransaction }}">{{ tx.trunkTransaction }}</router-link></td>
          </tr>
           <tr>
               <td>Branch Transaction Hash</td>
-              <td class="val mono-space"><a :href="'/tx/' + tx.branchTransaction">{{ tx.branchTransaction }}</a></td>
+              <td class="val mono-space"><router-link :to="{ name: 'Transaction', params: { hash: tx.branchTransaction }}">{{ tx.branchTransaction }}</router-link></td>
          </tr>
           <tr>
               <td>Bundle Hash</td>
-              <td class="val mono-space"><a :href="'/bundle/' + tx.bundle">{{ tx.bundle }}</a></td>
+              <td class="val mono-space"><router-link :to="{ name: 'Bundle', params: { hash: tx.bundle }}">{{ tx.bundle }}</router-link></td>
           </tr>
           <tr>
               <td>Nonce</td>

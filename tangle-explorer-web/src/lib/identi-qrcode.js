@@ -85,11 +85,93 @@ var QRCode;
     }
 
     QRCodeModel.prototype = {
+				checksum: function() {
+					// Insecure, small hash function for creating quick, unique images
+				  var k = [], i = 0;
+
+				  for(; i < 64; ){
+				    k[i] = 0|(Math.abs(Math.sin(++i)) * 4294967296);
+				  }
+
+				  function calcMD5(str){
+				    var b, c, d, j,
+				        x = [],
+				        str2 = unescape(encodeURI(str)),
+				        a = str2.length,
+				        h = [b = 1732584193, c = -271733879, ~b, ~c],
+				        i = 0;
+
+				    for(; i <= a; ) x[i >> 2] |= (str2.charCodeAt(i)||128) << 8 * (i++ % 4);
+
+				    x[str = (a + 8 >> 6) * 16 + 14] = a * 8;
+				    i = 0;
+
+				    for(; i < str; i += 16){
+				      a = h; j = 0;
+				      for(; j < 64; ){
+				        a = [
+				          d = a[3],
+				          ((b = a[1]|0) +
+				            ((d = (
+				              (a[0] +
+				                [
+				                  b & (c = a[2]) | ~b&d,
+				                  d & b | ~d & c,
+				                  b ^ c ^ d,
+				                  c ^ (b | ~d)
+				                ][a = j >> 4]
+				              ) +
+				              (k[j] +
+				                (x[[
+				                  j,
+				                  5 * j + 1,
+				                  3 * j + 5,
+				                  7 * j
+				                ][a] % 16 + i]|0)
+				              )
+				            )) << (a = [
+				              7, 12, 17, 22,
+				              5,  9, 14, 20,
+				              4, 11, 16, 23,
+				              6, 10, 15, 21
+				            ][4 * a + j++ % 4]) | d >>> 32 - a)
+				          ),
+				          b,
+				          c
+				        ];
+				      }
+				      for(j = 4; j; ) h[--j] = h[j] + a[j];
+				    }
+
+				    str = '';
+				    for(; j < 32; ) str += ((h[j >> 3] >> ((1 ^ j++ & 7) * 4)) & 15).toString(16);
+
+				    return str;
+				  }
+					window.list = []
+				  return calcMD5;
+				}(),
         addData: function(data) {
             var newData = new QR8bitByte(data);
             this.dataList.push(newData);
             this.dataCache = null;
         },
+				identiColor(row, col) {
+					if(this.isDark(row, col)) {
+						return '#000'
+					}
+					var hash = this.checksum(this.dataList[0].data)
+					var colors = ['#7fd7fc', '#dfe876', '#f25068', '#9fd59a']
+					var filteredColors = []
+					for(var i = 0; i < 2; i++) {
+						filteredColors.push(colors[hash.charCodeAt(i) % colors.length])
+					}
+					var colHalf = Math.floor(Math.abs(Math.floor(this.moduleCount / 2) - (col)))
+					var rowIndex = (hash.charCodeAt((colHalf + row) % hash.length)) % this.moduleCount
+					if(window.list.length < this.moduleCount)
+						window.list.push(rowIndex)
+					return filteredColors[(rowIndex) % filteredColors.length]
+				},
         isDark: function(row, col) {
             if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
                 throw new Error(row + "," + col);
@@ -1197,12 +1279,12 @@ var QRCode;
 
             for (var row = 0; row < nCount; row++) {
                 for (var col = 0; col < nCount; col++) {
-                    var bIsDark = oQRCode.isDark(row, col);
+                    var color = oQRCode.identiColor(row, col);
                     var nLeft = col * nWidth;
                     var nTop = row * nHeight;
-                    _oContext.strokeStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;
+                    _oContext.strokeStyle = color;
                     _oContext.lineWidth = 1;
-                    _oContext.fillStyle = bIsDark ? _htOption.colorDark : _htOption.colorLight;
+                    _oContext.fillStyle = color;
                     _oContext.fillRect(nLeft, nTop, nWidth, nHeight);
 
                     // 안티 앨리어싱 방지 처리

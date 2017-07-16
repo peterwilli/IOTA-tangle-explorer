@@ -51,9 +51,10 @@
         <div slot="content" class="io-content">
           <div class="inputs">
             <div class="input" v-for="tx in txIO.inputs">
-              <div class="hash mono-space">
-                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link> <span class="iota-val">{{ tx.value }}</span>
+              <div class="io-link">
+                <router-link class="mono-space io-link" :style="getStyleIO(tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
               </div>
+              <span class="iota-val">{{ tx.value }}</span>
             </div>
           </div>
           <div class="arrow">
@@ -61,8 +62,11 @@
           </div>
           <div class="outputs">
             <div class="output" v-for="tx in txIO.outputs">
-              <div class="hash mono-space">
-                <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link> <span class="iota-val">{{ tx.value }}</span>
+              <div class="hash">
+                <div class="io-link">
+                  <router-link class="mono-space io-link" :style="getStyleIO(tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                </div>
+                <span class="iota-val">{{ tx.value }}</span>
               </div>
             </div>
           </div>
@@ -149,6 +153,11 @@ export default {
     ExpandBox
   },
   methods: {
+    getStyleIO(hash) {
+      if(hash === this.tx.hash) {
+        return 'font-weight: bold'
+      }
+    },
     getIOFromTX(tx) {
       iotaNode.iota.api.findTransactionObjects({ bundles: [tx.bundle] }, (e, r) => {
         var inputs = []
@@ -223,7 +232,7 @@ legend {
 .tx-io
   padding: 8px
   .inputs, .outputs
-    width 40%
+    width 45%
     word-break break-all
 
   .inputs
@@ -232,9 +241,15 @@ legend {
   .outputs
     float right
 
+  .io-link
+    width 200px
+    overflow hidden
+    text-overflow ellipsis
+    white-space: nowrap
+
   .arrow
     float left
-    width 20%
+    width 10%
     font-size 50px
     text-align center
     color: #1fb02e

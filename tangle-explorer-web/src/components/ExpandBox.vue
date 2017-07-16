@@ -1,7 +1,7 @@
 <template lang="html">
   <div ref='box' class='expand-box' :style="'max-height:' + currentHeight + 'px'">
     <slot name="content"></slot>
-    <div v-if="hasOverflow" @click="toggleExpand()" class="expand-button">
+    <div v-if="hasOverflow && !expanded" @click="toggleExpand()" class="expand-button">
       Expand
     </div>
   </div>

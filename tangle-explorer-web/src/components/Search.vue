@@ -40,7 +40,7 @@ export default {
       this.results = r
     },
     update: _.debounce(function (e) {
-      iotaNode.iota.api.getTransactionsObjects([e.target.value], this.searchCallback)
+      iotaNode.iota.api.getTransactionsObjects([e.target.value.trim()], this.searchCallback)
     }, 300),
     onSubmit() {
 

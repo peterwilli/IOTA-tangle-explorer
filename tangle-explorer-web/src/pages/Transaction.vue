@@ -50,7 +50,7 @@
       <div class="inputs">
         <div class="input" v-for="tx in txIO.inputs">
           <div class="hash mono-space">
-            {{ tx.address }}
+            <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
       <div class="outputs">
         <div class="output" v-for="tx in txIO.outputs">
           <div class="hash mono-space">
-            {{ tx.address }}
+            <router-link :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
           </div>
         </div>
       </div>
@@ -209,6 +209,7 @@ legend {
 }
 
 .tx-io
+  padding: 8px
   .inputs, .outputs
     width 40%
     word-break break-all
@@ -253,7 +254,6 @@ legend {
     height 40px
 
     .tx-info-title, .addr-box-title
-      line-height 30px
       font-weight bold
 
     .tx-info-title
@@ -264,7 +264,7 @@ legend {
       float left
       width 244px
 
-    padding 5px
+    padding 10px
     background rgb(222, 222, 222)
     .left
       float left

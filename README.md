@@ -9,3 +9,13 @@ This is a complete recode of the Tangle Explorer, with the following differences
 - Written in VueJS (React but much simpler)
 
 Currently being worked on by me (peterwilli) as a weekend challenge and ongoing efforts to join the IOTA community.
+
+## How to run
+
+Commands are `displayed like this!`
+
+Assuming you have NodeJS.
+
+- cd to tangle-explorer-web
+- run `npm install`
+- run `npm run dev` and a web browser will pop up with the page.

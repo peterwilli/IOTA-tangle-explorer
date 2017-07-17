@@ -57,8 +57,8 @@
               <span class="iota-val">{{ tx.value }}</span>
             </div>
           </div>
-          <div class="arrow">
-            <ceri-icon name="fa-arrow-circle-o-right"></ceri-icon>
+          <div ref="arrow" class="arrow">
+            <ceri-icon class="arrow-icon" name="fa-arrow-circle-o-right"></ceri-icon>
           </div>
           <div class="outputs">
             <div class="output" v-for="tx in txIO.outputs">
@@ -251,9 +251,11 @@ legend {
   .arrow
     float left
     width 10%
-    font-size 50px
     text-align center
     color: #1fb02e
+
+    .arrow-icon
+      width 100%
 
 .tx-box
   word-break break-all

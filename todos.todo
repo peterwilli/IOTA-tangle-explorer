@@ -1,6 +1,7 @@
 Todos:
-☐ Make layout mobile-friendly @important @due(today)
-☐ Allow displaying bundles, addresses
+✔ Make layout mobile-friendly @important @due(today) @done(2017-07-18 01:17)
+✔ Allow displaying addresses @done(2017-07-18 01:17)
+☐ Allow displaying bundles
 
 Improvements:
 ☐ Use https://stackoverflow.com/questions/831552/ellipsis-in-the-middle-of-a-text-mac-style to set value next to cut-off tx i/o

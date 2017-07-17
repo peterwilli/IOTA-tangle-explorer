@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import "../styles/media-mixin.styl"
+
 .logo {
   margin-top 5px
 }
@@ -38,5 +40,7 @@ export default {
   right 0
   height 80px
   background #121728
+  padding-left 10px
+  padding-right 10px
 }
 </style>

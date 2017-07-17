@@ -28,6 +28,36 @@
       </div>
       <div class="clearfix"></div>
     </div>
+    <div class="tx-io" v-if="txIOs">
+      <div class="tx-item" v-for="txIO in txIOs">
+        <expand-box :max-height='250'>
+          <div slot="content" class="io-content">
+            <div class="inputs">
+              <div class="input" v-for="tx in txIO.inputs">
+                <div class="io-link">
+                  <router-link class="mono-space io-link" :style="$getStyleIO(tx.hash, hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                </div>
+                <span class="iota-val">{{ tx.value }}</span>
+              </div>
+            </div>
+            <div ref="arrow" class="arrow">
+              <ceri-icon class="arrow-icon" name="fa-arrow-circle-o-right"></ceri-icon>
+            </div>
+            <div class="outputs">
+              <div class="output" v-for="tx in txIO.outputs">
+                <div class="hash">
+                  <div class="io-link">
+                    <router-link class="mono-space io-link" :style="$getStyleIO(tx.hash, hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                  </div>
+                  <span class="iota-val">{{ tx.value }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </expand-box>
+      </div>
+    </div>
   </div>
   <div class="loading" v-else>
 
@@ -38,6 +68,7 @@
 require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 const txToIO = require('@/utils/tx-to-io.js').default
+const _ = require('lodash')
 
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
@@ -57,7 +88,12 @@ export default {
       })
       iotaNode.iota.api.findTransactionObjects({ addresses: [this.$route.params.hash] }, function(e, r) {
         _this.addr.transactions = r
-        _this.txIO = txToIO(r)
+        var bundles = _.map(r, (tx) => {
+          return tx.bundle
+        })
+        iotaNode.iota.api.findTransactionObjects({ bundles }, function(e, r) {
+          _this.txIOs = txToIO(r)
+        })
       })
     }
   },
@@ -75,7 +111,7 @@ export default {
         balances: null,
         transactions: null
       },
-      txIO: null,
+      txIOs: null,
       hash: this.$route.params.hash
     }
   }
@@ -102,6 +138,12 @@ legend {
   margin-top 15px
   color #595959
 }
+
+.tx-item
+  padding 5px
+  &:nth-child(even){background-color: #f2f2f2}
+  a
+    color #333
 
 .tx-io
   padding: 8px

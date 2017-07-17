@@ -52,7 +52,7 @@
           <div class="inputs">
             <div class="input" v-for="tx in txIO.inputs">
               <div class="io-link">
-                <router-link class="mono-space io-link" :style="getStyleIO(tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                <router-link class="mono-space io-link" :style="$getStyleIO(hash, tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
               </div>
               <span class="iota-val">{{ tx.value }}</span>
             </div>
@@ -64,7 +64,7 @@
             <div class="output" v-for="tx in txIO.outputs">
               <div class="hash">
                 <div class="io-link">
-                  <router-link class="mono-space io-link" :style="getStyleIO(tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+                  <router-link class="mono-space io-link" :style="$getStyleIO(hash, tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
                 </div>
                 <span class="iota-val">{{ tx.value }}</span>
               </div>
@@ -157,11 +157,6 @@ export default {
     ExpandBox
   },
   methods: {
-    getStyleIO(hash) {
-      if(hash === this.tx.hash) {
-        return 'font-weight: bold'
-      }
-    },
     getIOFromTX() {
       iotaNode.iota.api.findTransactionObjects({ bundles: [this.tx.bundle] }, (e, r) => {
         this.txIO = txToIO(r)[0]

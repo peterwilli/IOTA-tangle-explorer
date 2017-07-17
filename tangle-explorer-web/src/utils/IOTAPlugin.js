@@ -9,5 +9,11 @@ module.exports = {
     Vue.prototype.$localeTimestamp = function (timestamp) {
       return moment(timestamp * 1000).format()
     }
+
+    Vue.prototype.$getStyleIO = function(h1, h2) {
+      if(h1 === h2) {
+        return 'font-weight: bold'
+      }
+    }
   }
 }

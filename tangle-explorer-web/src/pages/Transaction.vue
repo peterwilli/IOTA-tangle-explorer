@@ -143,7 +143,9 @@
 
 <script>
 require('@/lib/iota')
-var iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node")
+const txToIO = require('@/utils/tx-to-io.js').default
+
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
@@ -160,27 +162,9 @@ export default {
         return 'font-weight: bold'
       }
     },
-    getIOFromTX(tx) {
-      iotaNode.iota.api.findTransactionObjects({ bundles: [tx.bundle] }, (e, r) => {
-        var inputs = []
-        var outputs = []
-        for(var i = 0; i < r.length; i++) {
-          var tx = r[i]
-          var isInput = tx.value < 0
-          var isOutput = tx.value > 0
-          if(isInput) {
-            inputs.push(tx)
-          }
-          else if(isOutput) {
-            outputs.push(tx)
-          }
-        }
-        if(inputs.length + outputs.length === 0) {
-          this.txIO = null
-        }
-        else {
-          this.txIO = { inputs, outputs }
-        }
+    getIOFromTX() {
+      iotaNode.iota.api.findTransactionObjects({ bundles: [this.tx.bundle] }, (e, r) => {
+        this.txIO = txToIO(r)[0]
       })
     },
     getQRAddress() {

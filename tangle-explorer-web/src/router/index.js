@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/pages/Home';
 import Transaction from '@/pages/Transaction';
+import Address from '@/pages/Address';
 
 Vue.use(Router);
 
@@ -11,6 +12,11 @@ export default new Router({
       path: '/tx/:hash',
       name: 'Transaction',
       component: Transaction
+    },
+    {
+      path: '/addr/:hash',
+      name: 'Address',
+      component: Address
     },
     {
       path: '/',

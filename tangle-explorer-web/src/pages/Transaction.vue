@@ -85,7 +85,7 @@
           </tr>
           <tr>
             <td>Address</td>
-            <td class="val mono-space"><a :href="'/addr/' + tx.address">{{ tx.address }}</a></td>
+            <td class="val mono-space"><router-link :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link></td>
           </tr>
           <tr>
               <td>Value</td>

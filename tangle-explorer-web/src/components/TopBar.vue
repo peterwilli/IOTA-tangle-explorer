@@ -42,5 +42,6 @@ export default {
   background #121728
   padding-left 10px
   padding-right 10px
+  z-index: 2
 }
 </style>

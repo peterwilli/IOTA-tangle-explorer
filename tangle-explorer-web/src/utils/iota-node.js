@@ -25,7 +25,7 @@ var obj = {
 
 // Create IOTA instance directly with provider
 var iota = new IOTA({
-    'provider': 'http://iota.bitfinex.com:80'
+    'provider': 'https://n1.iota.nu:443'
 });
 obj.iota = iota
 

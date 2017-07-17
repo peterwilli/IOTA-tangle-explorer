@@ -46,8 +46,11 @@
     <legend>
       Transaction I/O
     </legend>
-    <div class="tx-io" v-if="txIO">
+    <div class="tx-io" v-if="txIO && (txIO.inputs.length + txIO.outputs.length) > 0">
       <tx-io :txIO='txIO' :viewingHash='tx.address'></tx-io>
+    </div>
+    <div class="absence error" v-else>
+      No Tx I/O found :(
     </div>
     <legend>
       Transaction details

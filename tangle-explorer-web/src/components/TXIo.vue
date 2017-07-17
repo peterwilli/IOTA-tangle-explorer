@@ -1,5 +1,5 @@
 <template lang="html">
-  <expand-box :max-height='250'>
+  <expand-box :max-height='250' v-if="(txIO.inputs.length + txIO.outputs.length) > 0">
     <div slot="content" class="io-content">
       <div class="inputs">
         <div class="input" v-for="tx in txIO.inputs">

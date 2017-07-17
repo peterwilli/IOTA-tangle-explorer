@@ -9,7 +9,7 @@
           Transaction Info
         </div>
         <div class="right">
-          <ceri-icon name="fa-clock-o"></ceri-icon> {{ $relativeTimestamp(tx.timestamp) }}
+          <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="tx.timestamp"></relative-time>
         </div>
         <div style="clear:both"></div>
       </div>
@@ -18,7 +18,7 @@
           <identi-qr :size='500' :contents="tx.address"></identi-qr>
         </div>
         <div class="addr mono-space">
-          {{ tx.address }}
+          <router-link :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link>
         </div>
       </div>
       <div class="tx-info stretch mobile">
@@ -47,7 +47,7 @@
       Transaction I/O
     </legend>
     <div class="tx-io" v-if="txIO">
-      <tx-io :txIO='txIO' :viewingHash='hash'></tx-io>
+      <tx-io :txIO='txIO' :viewingHash='tx.address'></tx-io>
     </div>
     <legend>
       Transaction details
@@ -72,7 +72,7 @@
           </tr>
           <tr>
             <td>Timestamp</td>
-            <td class="val mono-space">{{ $localeTimestamp(tx.timestamp) }} ({{ $relativeTimestamp(tx.timestamp) }})</td>
+            <td class="val mono-space">{{ $localeTimestamp(tx.timestamp) }} <relative-time :timestamp="tx.timestamp"></relative-time>(</td>
           </tr>
           <tr>
               <td>Current Index in Bundle</td>
@@ -125,13 +125,15 @@ import TxIo from '@/components/TXIo.vue'
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
+import RelativeTime from '@/components/RelativeTime.vue'
 
 export default {
   components: {
     Identicon,
     IdentiQr,
     ExpandBox,
-    TxIo
+    TxIo,
+    RelativeTime
   },
   methods: {
     getIOFromTX() {

@@ -10,7 +10,7 @@
         </div>
         <div class="cut-text time">
           <ceri-icon name="fa-clock-o"></ceri-icon>
-          {{ $relativeTimestamp(result.timestamp) }}
+          <relative-time :timestamp="result.timestamp"></relative-time>
         </div>
       </div>
     </div>
@@ -22,7 +22,12 @@ const _ = require('lodash')
 require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
 
+import RelativeTime from '@/components/RelativeTime.vue'
+
 export default {
+  components: {
+    RelativeTime
+  },
   methods: {
     goTo(hash) {
       this.$router.push({

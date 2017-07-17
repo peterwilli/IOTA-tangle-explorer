@@ -28,9 +28,17 @@
       </div>
       <div class="clearfix"></div>
     </div>
+    <legend>
+      Recent Transactions
+    </legend>
     <div class="tx-io" v-if="txIOs">
       <div class="tx-item" v-for="txIO in txIOs">
-        <tx-io :viewingHash='null' :txIO="txIO"></tx-io>
+        <div class="tx-top" v-if="txIO.inputs.length > 0">
+          <!-- I assume that all the timestamps of a transaction in a bundle are close to eachother,
+           so that taking the first timestamp and displaying that as complete time of bundle is good enough. -->
+          <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
+        </div>
+        <tx-io :viewingHash='hash' :txIO="txIO"></tx-io>
       </div>
     </div>
   </div>
@@ -49,13 +57,15 @@ import TxIo from '@/components/TXIo.vue'
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
+import RelativeTime from '@/components/RelativeTime.vue'
 
 export default {
   components: {
     Identicon,
     IdentiQr,
     ExpandBox,
-    TxIo
+    TxIo,
+    RelativeTime
   },
   methods: {
     initAddr() {
@@ -98,6 +108,10 @@ export default {
 <style lang="stylus" scoped>
 @import "../styles/media-mixin.styl"
 
+.tx-item
+  padding 5px
+  &:nth-child(even){background-color: #f2f2f2}
+
 table.striped {
     border-collapse: collapse;
     width: 100%;
@@ -115,12 +129,6 @@ legend {
   margin-top 15px
   color #595959
 }
-
-.tx-item
-  padding 5px
-  &:nth-child(even){background-color: #f2f2f2}
-  a
-    color #333
 
 .tx-box
   word-break break-all

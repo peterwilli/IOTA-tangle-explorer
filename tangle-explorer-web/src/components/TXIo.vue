@@ -4,7 +4,7 @@
       <div class="inputs">
         <div class="input" v-for="tx in txIO.inputs">
           <div class="io-link">
-            <router-link class="mono-space io-link" :style="$getStyleIO(tx.hash, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+            <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
           </div>
           <span class="iota-val">{{ tx.value }}</span>
         </div>
@@ -16,7 +16,7 @@
         <div class="output" v-for="tx in txIO.outputs">
           <div class="hash">
             <div class="io-link">
-              <router-link class="mono-space io-link" :style="$getStyleIO(tx.hash, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
+              <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
             </div>
             <span class="iota-val">{{ tx.value }}</span>
           </div>

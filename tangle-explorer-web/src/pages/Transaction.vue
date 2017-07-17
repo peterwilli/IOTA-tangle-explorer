@@ -308,7 +308,6 @@ legend {
       width 80%
 
     .right
-      width 20%
       float right
       text-align right
       font-weight bold

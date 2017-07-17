@@ -1,5 +1,5 @@
 <template lang="html">
-  <div ref='box' class='expand-box' :style="'max-height:' + currentHeight + 'px'">
+  <div ref='box' class='expand-box' :style="getStyle()">
     <slot name="content"></slot>
     <div v-if="hasOverflow && !expanded" @click="toggleExpand()" class="expand-button">
       Expand
@@ -21,13 +21,21 @@ export default {
     clearInterval(this.timer)
   },
   methods: {
+    getStyle() {
+      if(this.currentHeight > 0) {
+        return ('max-height:' + this.currentHeight + 'px')
+      }
+      else {
+        return ''
+      }
+    },
     toggleExpand() {
       this.expanded = !this.expanded
       this.currentHeight = this.$refs.box.scrollHeight
     },
     checkOverflow() {
       var element = this.$refs.box
-      this.hasOverflow = (element.offsetHeight < element.scrollHeight || element.offsetWidth < element.scrollWidth)
+      this.hasOverflow = (element.offsetHeight < element.scrollHeight - 1)
     }
   },
   data() {

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class='tx container' v-if="tx">
     <div class="tx-box">
-      <div class='title'>
+      <div class='title hidden mobile'>
         <div class="addr-box-title">
           Address
         </div>
@@ -21,7 +21,7 @@
           {{ tx.address }}
         </div>
       </div>
-      <div class="tx-info">
+      <div class="tx-info stretch mobile">
         <div class="name">
           Hash
         </div>
@@ -211,6 +211,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import "../styles/media-mixin.styl"
+
 table.striped {
     border-collapse: collapse;
     width: 100%;
@@ -242,7 +244,6 @@ legend {
     float right
 
   .io-link
-    width 200px
     overflow hidden
     text-overflow ellipsis
     white-space: nowrap
@@ -268,9 +269,16 @@ legend {
       word-break break-all
       font-size 15px
 
+  +mobile()
+    .addr-box
+      margin 0 auto
+      float none!important
+      text-align center
+
   .addr-box
     float left
     width 244px
+
     .qr
       width 100%
     .addr

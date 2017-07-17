@@ -1,3 +1,5 @@
+@import "./media-mixin.styl"
+
 .container
   width 100%
   max-width 800px
@@ -6,6 +8,15 @@
 .mono-space {
   font-family: "Courier New", Courier, monospace
 }
+
++mobile()
+  .stretch
+    &.mobile
+      width 100%!important
+
+  .hidden
+    &.mobile
+      display none
 
 .iota-val
   &:before

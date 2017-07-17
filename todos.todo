@@ -4,6 +4,6 @@ Todos:
 
 Improvements:
 ☐ Use https://stackoverflow.com/questions/831552/ellipsis-in-the-middle-of-a-text-mac-style to set value next to cut-off tx i/o
-☐ @peterwilli when looking at new transactions - the time ago wraps to a new line.
+✔ @peterwilli when looking at new transactions - the time ago wraps to a new line. @done(2017-07-17 16:48)
 ☐ @peterwilli in the example tx you gave, the QRs of `MOIT..` & `EFPS..` (the other output) render quite similar.
 not sure what your coloring rules are, but that may be confusing.

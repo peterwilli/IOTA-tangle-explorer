@@ -123,12 +123,14 @@
               <td>Nonce</td>
               <td class="val mono-space">{{ tx.nonce }}</td>
           </tr>
-          <tr data-toggle="collapse" data-target="#sig" class="clickable">
-              <td>Message or Signature (click to show)</td>
+          <tr >
+              <td>Message or Signature</td>
               <td class="val mono-space">
-                <div class="accordion-body collapse" id="sig">
-                  {{ tx.signatureMessageFragment }}
-                </div>
+                <expand-box :max-height='250'>
+                  <div slot="content">
+                    {{ tx.signatureMessageFragment }}
+                  </div>
+                </expand-box>
               </td>
           </tr>
       </tbody>

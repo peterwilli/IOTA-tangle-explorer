@@ -47,32 +47,7 @@
       Transaction I/O
     </legend>
     <div class="tx-io" v-if="txIO">
-      <expand-box :max-height='250'>
-        <div slot="content" class="io-content">
-          <div class="inputs">
-            <div class="input" v-for="tx in txIO.inputs">
-              <div class="io-link">
-                <router-link class="mono-space io-link" :style="$getStyleIO(hash, tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
-              </div>
-              <span class="iota-val">{{ tx.value }}</span>
-            </div>
-          </div>
-          <div ref="arrow" class="arrow">
-            <ceri-icon class="arrow-icon" name="fa-arrow-circle-o-right"></ceri-icon>
-          </div>
-          <div class="outputs">
-            <div class="output" v-for="tx in txIO.outputs">
-              <div class="hash">
-                <div class="io-link">
-                  <router-link class="mono-space io-link" :style="$getStyleIO(hash, tx.hash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.hash }}</router-link>
-                </div>
-                <span class="iota-val">{{ tx.value }}</span>
-              </div>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </expand-box>
+      <tx-io :txIO='txIO' :viewingHash='hash'></tx-io>
     </div>
     <legend>
       Transaction details
@@ -146,6 +121,7 @@ require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 const txToIO = require('@/utils/tx-to-io.js').default
 
+import TxIo from '@/components/TXIo.vue'
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
@@ -154,7 +130,8 @@ export default {
   components: {
     Identicon,
     IdentiQr,
-    ExpandBox
+    ExpandBox,
+    TxIo
   },
   methods: {
     getIOFromTX() {

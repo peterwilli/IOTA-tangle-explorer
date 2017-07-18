@@ -6,7 +6,7 @@
           <div class="io-link">
             <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
           </div>
-          <span class="iota-val">{{ tx.value }}</span>
+          <span class="iota-val"><iota-balance-view :value='tx.value'></iota-balance-view></span>
         </div>
       </div>
       <div ref="arrow" class="arrow">
@@ -18,7 +18,7 @@
             <div class="io-link">
               <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
             </div>
-            <span class="iota-val">{{ tx.value }}</span>
+            <span class="iota-val"><iota-balance-view :value='tx.value'></iota-balance-view></span>
           </div>
         </div>
       </div>
@@ -28,6 +28,11 @@
 </template>
 
 <script>
+require('@/lib/iota')
+const iotaNode = require("@/utils/iota-node")
+const txToIO = require('@/utils/tx-to-io.js').default
+
+import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
@@ -36,7 +41,8 @@ export default {
   components: {
     Identicon,
     IdentiQr,
-    ExpandBox
+    ExpandBox,
+    IotaBalanceView
   },
   props: ['txIO', 'viewingHash']
 }

@@ -10,7 +10,12 @@ Improvements:
 
 Bugs:
 ☐ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates)
-☐ Date format issue on /tx page
+✔ Date format issue on /tx page @done(2017-07-18 21:38)
+✔ https://iota.codebuffet.co/#/tx/WSXLZZKEBKLJRMIWEUHXUPAZGEONUIEJOSYCIAMORYXDCCCPGBYLATPZIUSGVLKZVMEPOIBSWHHU99999 @done(2017-07-18 21:49)
+  ```Timestamp    2017-07-18T15:46:42+03:00 24 minutes ago(```
+  ^ format issue? , btw, when I first loaded this page I got
+  ```Timestamp    2017-07-18T15:46:42+03:00 a month ago(```
+  ^ is that a default value?
 ☐ Duplicate bundles in TX i/o: this one shows the duplicate bundles (replays) - you can see there are 2 of each. (https://iota.codebuffet.co/#/addr/FPCQFOBL9OVTNTLNMOJUBAIWE9LYNJGKWDSKHOMUAGYQOLNYUPYWDAWYGTPMRL99MK9XWPWZOQAMFOHLZ is an extreme of this)
 ☐ @peterwilli in the example tx you gave, the QRs of `MOIT..` & `EFPS..` (the other output) render quite similar.
 not sure what your coloring rules are, but that may be confusing.

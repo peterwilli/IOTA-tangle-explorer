@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     pickUnit(value) {
-      console.log(typeof(value));
       var values = {
         '1': 'i',
         '1000': 'Ki',

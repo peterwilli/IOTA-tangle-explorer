@@ -75,7 +75,7 @@
           </tr>
           <tr>
             <td>Timestamp</td>
-            <td class="val mono-space">{{ $localeTimestamp(tx.timestamp) }} <relative-time :timestamp="tx.timestamp"></relative-time>(</td>
+            <td class="val mono-space">{{ $localeTimestamp(tx.timestamp) }} (<relative-time :timestamp="tx.timestamp"></relative-time>)</td>
           </tr>
           <tr>
               <td>Current Index in Bundle</td>

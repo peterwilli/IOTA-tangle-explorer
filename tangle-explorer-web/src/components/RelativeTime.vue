@@ -16,6 +16,11 @@ export default {
       this.time = moment(this.timestamp * 1000).fromNow()
     }
   },
+  watch: {
+    timestamp() {
+      this.update()
+    }
+  },
   beforeDestroy() {
     if(this.interval !== null) {
       clearInterval(this.update)

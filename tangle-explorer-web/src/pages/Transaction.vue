@@ -26,13 +26,19 @@
           Hash
         </div>
         <div class="value mono-space">
-          {{ tx.hash }}
+          <click-to-select :text='tx.hash'></click-to-select>
+        </div>
+        <div class="name" v-if="txStatus">
+          Status
+        </div>
+        <div class="value mono-space" v-if="txStatus">
+          <span :class="'status-' + txStatus">{{ displayStatus(txStatus) }}</span>
         </div>
         <div class="name">
           Tag
         </div>
         <div class="value mono-space">
-          {{ tx.tag }}
+          <click-to-select :text='tx.tag'></click-to-select>
         </div>
         <div class="name">
           Value
@@ -130,6 +136,7 @@ import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
+import ClickToSelect from '@/components/ClickToSelect.vue'
 
 export default {
   components: {
@@ -138,9 +145,13 @@ export default {
     ExpandBox,
     TxIo,
     RelativeTime,
-    IotaBalanceView
+    IotaBalanceView,
+    ClickToSelect
   },
   methods: {
+    displayStatus(status) {
+      return status.charAt(0).toUpperCase() + status.slice(1)
+    },
     getIOFromTX() {
       iotaNode.iota.api.findTransactionObjects({ bundles: [this.tx.bundle] }, (e, r) => {
         this.txIO = txToIO(r)[0]
@@ -154,6 +165,14 @@ export default {
       iotaNode.iota.api.getTransactionsObjects([this.$route.params.hash], function(e, r) {
         _this.tx = r[0]
         _this.getIOFromTX(r[0])
+      })
+      iotaNode.iota.api.getLatestInclusion([this.$route.params.hash], function(e, r) {
+        if(r[0]) {
+          _this.txStatus = 'confirmed'
+        }
+        else {
+          _this.txStatus = 'failed'
+        }
       })
     }
   },
@@ -169,7 +188,8 @@ export default {
     return {
       txIO: null,
       hash: this.$route.params.hash,
-      tx: null
+      tx: null,
+      txStatus: null
     }
   }
 }
@@ -194,6 +214,16 @@ legend {
   font-size 25px
   margin-top 15px
   color #595959
+}
+
+.status-failed {
+  color rgb(182, 45, 45)
+  font-weight bold
+}
+
+.status-confirmed {
+  color rgb(48, 168, 24)
+  font-weight bold
 }
 
 .tx-io

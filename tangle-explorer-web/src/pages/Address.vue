@@ -14,10 +14,9 @@
         <div class="qr">
           <identi-qr :size='500' :contents="$route.params.hash"></identi-qr>
         </div>
-
-          <div slot='content' class="addr mono-space">
-            <click-to-select :text='$route.params.hash'></click-to-select>
-          </div>
+        <div slot='content' class="addr mono-space">
+          <click-to-select :text='$route.params.hash'></click-to-select>
+        </div>
       </div>
       <div class="tx-info stretch mobile">
         <div class="name">

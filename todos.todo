@@ -6,5 +6,10 @@ Todos:
 Improvements:
 ☐ Use https://stackoverflow.com/questions/831552/ellipsis-in-the-middle-of-a-text-mac-style to set value next to cut-off tx i/o
 ✔ @peterwilli when looking at new transactions - the time ago wraps to a new line. @done(2017-07-17 16:48)
+
+Bugs:
+☐ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates)
+☐ Date format issue on /tx page
+☐ Duplicate bundles in TX i/o: this one shows the duplicate bundles (replays) - you can see there are 2 of each. (https://iota.codebuffet.co/#/addr/FPCQFOBL9OVTNTLNMOJUBAIWE9LYNJGKWDSKHOMUAGYQOLNYUPYWDAWYGTPMRL99MK9XWPWZOQAMFOHLZ is an extreme of this)
 ☐ @peterwilli in the example tx you gave, the QRs of `MOIT..` & `EFPS..` (the other output) render quite similar.
 not sure what your coloring rules are, but that may be confusing.

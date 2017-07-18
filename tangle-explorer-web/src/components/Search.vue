@@ -15,14 +15,12 @@
       </div>
 
       <div class="result" @click="goTo('Address', result.hash);close();" v-for="result in addrResults">
-        <div class="cut-text hash">{{ result.hash }}</div>
-        <div class="cut-text address">
+        <div class="cut-text hash">
           <ceri-icon name="fa-user"></ceri-icon>
           {{ result.address }}
         </div>
-        <div class="cut-text time">
-          <ceri-icon name="fa-clock-o"></ceri-icon>
-          <relative-time :timestamp="result.timestamp"></relative-time>
+        <div class="cut-text balance">
+          <iota-balance-view :value='result.balance'></iota-balance-view>
         </div>
       </div>
     </div>
@@ -34,11 +32,12 @@ const _ = require('lodash')
 require('@/lib/iota')
 var iotaNode = require("@/utils/iota-node")
 
+import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 
 export default {
   components: {
-    RelativeTime
+    RelativeTime, IotaBalanceView
   },
   methods: {
     goTo(name, hash) {
@@ -61,10 +60,22 @@ export default {
       var val = e.target.value.trim()
       var _this = this
       iotaNode.iota.api.getBalances([val], 20, function(e, r) {
-        _this.addrResults = r
+        if(r !== undefined) {
+          var balance = parseInt(r.balances[0])
+          iotaNode.iota.api.findTransactionObjects({ addresses: [val] }, function(e, r) {
+            if(r !== undefined) {
+              _this.addrResults = [{
+                address: val,
+                balance: balance
+              }]
+            }
+          })
+        }
       })
       iotaNode.iota.api.getTransactionsObjects([val], function(e, r) {
-        _this.txResults = r
+        _this.txResults = _.filter(r, (tx) => {
+          return tx.hash !== '999999999999999999999999999999999999999999999999999999999999999999999999999999999'
+        })
       })
     }, 300)
   },

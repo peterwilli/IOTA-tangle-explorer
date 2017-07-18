@@ -14,9 +14,10 @@
         <div class="qr">
           <identi-qr :size='500' :contents="$route.params.hash"></identi-qr>
         </div>
-        <div class="addr mono-space">
-          {{ $route.params.hash }}
-        </div>
+
+          <div slot='content' class="addr mono-space">
+            <click-to-select :text='$route.params.hash'></click-to-select>
+          </div>
       </div>
       <div class="tx-info stretch mobile">
         <div class="name">
@@ -58,6 +59,7 @@ import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
+import ClickToSelect from '@/components/ClickToSelect.vue'
 
 export default {
   components: {
@@ -65,7 +67,8 @@ export default {
     IdentiQr,
     ExpandBox,
     TxIo,
-    RelativeTime
+    RelativeTime,
+    ClickToSelect
   },
   methods: {
     initAddr() {
@@ -75,9 +78,9 @@ export default {
       })
       iotaNode.iota.api.findTransactionObjects({ addresses: [this.$route.params.hash] }, function(e, r) {
         _this.addr.transactions = r
-        var bundles = _.map(r, (tx) => {
+        var bundles = _.uniq(_.map(r, (tx) => {
           return tx.bundle
-        })
+        }))
         iotaNode.iota.api.findTransactionObjects({ bundles }, function(e, r) {
           _this.txIOs = txToIO(r)
         })

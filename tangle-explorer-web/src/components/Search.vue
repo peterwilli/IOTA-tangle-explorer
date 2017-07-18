@@ -1,8 +1,20 @@
 <template lang="html">
-  <form v-on:submit.prevent="onSubmit" class='search'>
+  <form class='search'>
     <input @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
-    <div class='results' v-if="results !== null">
-      <div class="result" @click="goTo(result.hash);close();" v-for="result in results">
+    <div class='results' v-if="addrResults !== null || txResults !== null">
+      <div class="result" @click="goTo('Transaction', result.hash);close();" v-for="result in txResults">
+        <div class="cut-text hash">{{ result.hash }}</div>
+        <div class="cut-text address">
+          <ceri-icon name="fa-user"></ceri-icon>
+          {{ result.address }}
+        </div>
+        <div class="cut-text time">
+          <ceri-icon name="fa-clock-o"></ceri-icon>
+          <relative-time :timestamp="result.timestamp"></relative-time>
+        </div>
+      </div>
+
+      <div class="result" @click="goTo('Address', result.hash);close();" v-for="result in addrResults">
         <div class="cut-text hash">{{ result.hash }}</div>
         <div class="cut-text address">
           <ceri-icon name="fa-user"></ceri-icon>
@@ -29,31 +41,37 @@ export default {
     RelativeTime
   },
   methods: {
-    goTo(hash) {
+    goTo(name, hash) {
       this.$router.push({
-        name:'Transaction',
+        name: name,
         params: {
           hash
         }
       })
     },
+    emptyResults() {
+      this.addrResults = this.txResults = null
+    },
     close() {
-      this.results = null
+      this.emptyResults()
       this.searchText = ''
     },
-    searchCallback(e, r) {
-      this.results = r
-    },
     update: _.debounce(function (e) {
-      iotaNode.iota.api.getTransactionsObjects([e.target.value.trim()], this.searchCallback)
-    }, 300),
-    onSubmit() {
-
-    }
+      this.emptyResults()
+      var val = e.target.value.trim()
+      var _this = this
+      iotaNode.iota.api.getBalances([val], 20, function(e, r) {
+        _this.addrResults = r
+      })
+      iotaNode.iota.api.getTransactionsObjects([val], function(e, r) {
+        _this.txResults = r
+      })
+    }, 300)
   },
   data() {
     return {
-      results: null,
+      txResults: null,
+      addrResults: null,
       searchText: ''
     }
   }

@@ -21,6 +21,12 @@
         <iota-balance-view :value='result.balance'></iota-balance-view>
       </div>
     </div>
+
+    <div class="result" @click="goTo('Bundle', result.hash)" v-for="result in bundleResults">
+      <div class="cut-text hash">
+        {{ result.hash }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -33,7 +39,7 @@ import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 
 export default {
-  props: ['addrResults', 'txResults', 'click'],
+  props: ['addrResults', 'bundleResults', 'txResults', 'click'],
   components: {
     IotaBalanceView,
     RelativeTime

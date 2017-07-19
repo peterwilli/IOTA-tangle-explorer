@@ -1,7 +1,7 @@
 <template lang="html">
   <div class='search'>
     <input v-on:keyup.enter="pickFirstResult()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
-    <search-results :click='close' :txResults='txResults' :addrResults='addrResults'></search-results>
+    <search-results :click='close' v-if="addrResults !== null || txResults !== null || bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>
 
@@ -38,6 +38,9 @@ export default {
       else if(this.txResults !== null && this.txResults.length > 0) {
         this.goTo('Transaction', this.txResults[0].hash)
       }
+      else if(this.bundleResults !== null && this.bundleResults.length > 0) {
+        this.goTo('Bundle', this.bundleResults[0].hash)
+      }
       else {
         this.$router.push({
           name: 'Search',
@@ -49,7 +52,7 @@ export default {
       this.close()
     },
     emptyResults() {
-      this.addrResults = this.txResults = null
+      this.bundleResults = this.addrResults = this.txResults = null
     },
     close() {
       this.emptyResults()
@@ -63,6 +66,8 @@ export default {
         _this.txResults = txs
       }, (addresses) => {
         _this.addrResults = addresses
+      }, (bundles) => {
+        _this.bundleResults = bundles
       })
     }, 300)
   },
@@ -70,6 +75,7 @@ export default {
     return {
       txResults: null,
       addrResults: null,
+      bundleResults: null,
       searchText: ''
     }
   }

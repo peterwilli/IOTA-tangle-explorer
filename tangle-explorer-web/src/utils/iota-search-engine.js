@@ -2,7 +2,7 @@ require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 const _ = require('lodash')
 
-module.exports = (val, callbackTxs, callbackAddresses) => {
+module.exports = (val, callbackTxs, callbackAddresses, callbackBundles) => {
   iotaNode.iota.api.getBalances([val], 20, function(e, r) {
     if(r !== undefined) {
       var balance = parseInt(r.balances[0])
@@ -20,5 +20,12 @@ module.exports = (val, callbackTxs, callbackAddresses) => {
     callbackTxs(_.filter(r, (tx) => {
       return tx.hash !== '999999999999999999999999999999999999999999999999999999999999999999999999999999999'
     }))
+  })
+  iotaNode.iota.api.findTransactionObjects({ bundles: [val] }, function(e, r) {
+    if(r !== undefined && r.length > 0) {
+      callbackBundles([{
+        hash: r[0].bundle
+      }])
+    }
   })
 }

@@ -3,7 +3,7 @@
     <legend>
       Results
     </legend>
-    <search-results v-if="addrResults !== null || txResults !== null" :txResults='txResults' :addrResults='addrResults'></search-results>
+    <search-results v-if="addrResults !== null || txResults !== null || bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>
 
@@ -27,12 +27,15 @@ export default {
       _this.txResults = txs
     }, (addresses) => {
       _this.addrResults = addresses
+    }, (bundles) => {
+      _this.bundleResults = bundles
     })
   },
   data() {
     return {
       txResults: null,
-      addrResults: null
+      addrResults: null,
+      bundleResults: null
     }
   }
 }

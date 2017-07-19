@@ -7,9 +7,12 @@ Improvements:
 ☐ Use https://stackoverflow.com/questions/831552/ellipsis-in-the-middle-of-a-text-mac-style to set value next to cut-off tx i/o
 ☐ Using same color for value and balance is not a good idea.
 ✔ @peterwilli when looking at new transactions - the time ago wraps to a new line. @done(2017-07-17 16:48)
+☐ press enter in search
+☐ pending i/o display
 
 Bugs:
-☐ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates)
+☐ btw, I think the pickUnit (at least the version posted here) will show negative values w/ different denominations than intended (missing abs?) `-0.053219001125 Ti -> -53.29.. Gi ?`
+✔ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates) @done(2017-07-19 00:31)
 ✔ Date format issue on /tx page @done(2017-07-18 21:38)
 ✔ https://iota.codebuffet.co/#/tx/WSXLZZKEBKLJRMIWEUHXUPAZGEONUIEJOSYCIAMORYXDCCCPGBYLATPZIUSGVLKZVMEPOIBSWHHU99999 @done(2017-07-18 21:49)
   ```Timestamp    2017-07-18T15:46:42+03:00 24 minutes ago(```

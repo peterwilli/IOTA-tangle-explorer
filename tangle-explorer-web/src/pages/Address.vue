@@ -36,12 +36,13 @@
         <div class="tx-top">
           <!-- I assume that all the timestamps of a transaction in a bundle are close to eachother,
            so that taking the first timestamp and displaying that as complete time of bundle is good enough. -->
-          <div class="item">
-            <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
+           <div class="item">
+             <tx-status :hash="txIO.inputs[0].hash"></tx-status>
+           </div>
+           <div class="item">
+            <ceri-icon style="float:left; margin-right: 5px" name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
           </div>
-          <div class="item">
-            <tx-status :hash="txIO.inputs[0].hash"></tx-status>
-          </div>
+          <div class="clearfix"></div>
         </div>
         <tx-io :viewingHash='hash' :txIO="txIO"></tx-io>
       </div>
@@ -204,4 +205,19 @@ legend {
 
 .val
   word-break break-all
+
+.tx-item
+  width 100%
+  .tx-top
+    margin-bottom 5px
+    margin-top 5px
+    .item
+      border-left 1px solid rgba(#000000, 0.75)
+      padding-left 5px
+      &:first-child
+        border-left 0
+        padding-left 0
+
+      float left
+      margin-right 5px
 </style>

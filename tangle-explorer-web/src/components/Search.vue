@@ -1,29 +1,7 @@
 <template lang="html">
   <div class='search'>
     <input v-on:keyup.enter="pickFirstResult()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
-    <div class='results' v-if="addrResults !== null || txResults !== null">
-      <div class="result" @click="goTo('Transaction', result.hash);close();" v-for="result in txResults">
-        <div class="cut-text hash">{{ result.hash }}</div>
-        <div class="cut-text address">
-          <ceri-icon name="fa-user"></ceri-icon>
-          {{ result.address }}
-        </div>
-        <div class="cut-text time">
-          <ceri-icon name="fa-clock-o"></ceri-icon>
-          <relative-time :timestamp="result.timestamp"></relative-time>
-        </div>
-      </div>
-
-      <div class="result" @click="goTo('Address', result.hash);close();" v-for="result in addrResults">
-        <div class="cut-text hash">
-          <ceri-icon name="fa-user"></ceri-icon>
-          {{ result.address }}
-        </div>
-        <div class="cut-text balance">
-          <iota-balance-view :value='result.balance'></iota-balance-view>
-        </div>
-      </div>
-    </div>
+    <search-results :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>
 
@@ -35,10 +13,11 @@ const iotaSearch = require('@/utils/iota-search-engine.js')
 
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
+import SearchResults from '@/components/SearchResults.vue'
 
 export default {
   components: {
-    RelativeTime, IotaBalanceView
+    RelativeTime, IotaBalanceView, SearchResults
   },
   methods: {
     goTo(name, hash) {
@@ -50,11 +29,22 @@ export default {
       })
     },
     pickFirstResult() {
+      if(this.searchText.length === 0) {
+        return
+      }
       if(this.addrResults !== null && this.addrResults.length > 0) {
         this.goTo('Address', this.addrResults[0].hash)
       }
       else if(this.txResults !== null && this.txResults.length > 0) {
         this.goTo('Transaction', this.txResults[0].hash)
+      }
+      else {
+        this.$router.push({
+          name: 'Search',
+          params: {
+            query: this.searchText
+          }
+        })
       }
       this.close()
     },

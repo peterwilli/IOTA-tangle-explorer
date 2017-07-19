@@ -2,12 +2,13 @@ Todos:
 ✔ Make layout mobile-friendly @important @due(today) @done(2017-07-18 01:17)
 ✔ Allow displaying addresses @done(2017-07-18 01:17)
 ☐ Allow displaying bundles
+☐ Search results styling
 
 Improvements:
 ☐ Use https://stackoverflow.com/questions/831552/ellipsis-in-the-middle-of-a-text-mac-style to set value next to cut-off tx i/o
 ☐ Using same color for value and balance is not a good idea.
 ✔ @peterwilli when looking at new transactions - the time ago wraps to a new line. @done(2017-07-17 16:48)
-☐ press enter in search
+✔ press enter in search @done(2017-07-19 11:56)
 ☐ pending i/o display
 
 Bugs:

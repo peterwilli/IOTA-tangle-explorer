@@ -1,6 +1,6 @@
 <template lang="html">
   <div class='results' v-if="addrResults !== null || txResults !== null">
-    <div class="result" @click="goTo('Transaction', result.hash);close();" v-for="result in txResults">
+    <div class="result" @click="goTo('Transaction', result.hash)" v-for="result in txResults">
       <div class="cut-text hash">{{ result.hash }}</div>
       <div class="cut-text address">
         <ceri-icon name="fa-user"></ceri-icon>
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="result" @click="goTo('Address', result.hash);close();" v-for="result in addrResults">
+    <div class="result" @click="goTo('Address', result.address)" v-for="result in addrResults">
       <div class="cut-text hash">
         <ceri-icon name="fa-user"></ceri-icon>
         {{ result.address }}
@@ -33,7 +33,7 @@ import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 
 export default {
-  props: ['addrResults', 'txResults'],
+  props: ['addrResults', 'txResults', 'click'],
   components: {
     IotaBalanceView,
     RelativeTime
@@ -46,6 +46,9 @@ export default {
           hash
         }
       })
+      if(this.click !== undefined) {
+        this.click()
+      }
     }
   }
 }

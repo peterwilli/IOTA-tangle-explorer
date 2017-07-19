@@ -1,7 +1,7 @@
 <template lang="html">
   <div class='search'>
     <input v-on:keyup.enter="pickFirstResult()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
-    <search-results :txResults='txResults' :addrResults='addrResults'></search-results>
+    <search-results :click='close' :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>
 

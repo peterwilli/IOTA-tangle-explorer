@@ -1,6 +1,6 @@
 <template lang="html">
-  <form class='search'>
-    <input @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
+  <div class='search'>
+    <input v-on:keyup.enter="pickFirstResult()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, adresses" />
     <div class='results' v-if="addrResults !== null || txResults !== null">
       <div class="result" @click="goTo('Transaction', result.hash);close();" v-for="result in txResults">
         <div class="cut-text hash">{{ result.hash }}</div>
@@ -24,13 +24,14 @@
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
 const _ = require('lodash')
 require('@/lib/iota')
-var iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node")
+const iotaSearch = require('@/utils/iota-search-engine.js')
 
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
@@ -48,6 +49,15 @@ export default {
         }
       })
     },
+    pickFirstResult() {
+      if(this.addrResults !== null && this.addrResults.length > 0) {
+        this.goTo('Address', this.addrResults[0].hash)
+      }
+      else if(this.txResults !== null && this.txResults.length > 0) {
+        this.goTo('Transaction', this.txResults[0].hash)
+      }
+      this.close()
+    },
     emptyResults() {
       this.addrResults = this.txResults = null
     },
@@ -59,23 +69,10 @@ export default {
       this.emptyResults()
       var val = e.target.value.trim()
       var _this = this
-      iotaNode.iota.api.getBalances([val], 20, function(e, r) {
-        if(r !== undefined) {
-          var balance = parseInt(r.balances[0])
-          iotaNode.iota.api.findTransactionObjects({ addresses: [val] }, function(e, r) {
-            if(r !== undefined) {
-              _this.addrResults = [{
-                address: val,
-                balance: balance
-              }]
-            }
-          })
-        }
-      })
-      iotaNode.iota.api.getTransactionsObjects([val], function(e, r) {
-        _this.txResults = _.filter(r, (tx) => {
-          return tx.hash !== '999999999999999999999999999999999999999999999999999999999999999999999999999999999'
-        })
+      iotaSearch(val, (txs) => {
+        _this.txResults = txs
+      }, (addresses) => {
+        _this.addrResults = addresses
       })
     }, 300)
   },

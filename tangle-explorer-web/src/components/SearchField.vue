@@ -77,21 +77,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.results
-  position absolute
-  left 1px
-  right 1px
-  background #fff
-
-  .result:hover
-    background #eee
-
-  .result
-    padding 5px
-    cursor pointer
-    .hash
-      font-weight bold
-
 .search
   position relative
   width 100%

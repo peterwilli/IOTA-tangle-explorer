@@ -4,7 +4,7 @@
       <img class='logo' src="../assets/logo.png" />
       <div class='right'>
         <div class='search'>
-          <search></search>
+          <search-field></search-field>
         </div>
       </div>
     </div>
@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import Search from '@/components/Search.vue'
+import SearchField from '@/components/SearchField.vue'
 
 export default {
   components: {
-    Search
+    SearchField
   }
 }
 </script>

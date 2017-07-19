@@ -92,18 +92,16 @@ export default {
       width 100%
 
 
-.tx-item
-  width 100%
-  .tx-top
-    margin-bottom 5px
-    margin-top 5px
-    .item
-      border-left 1px solid rgba(#000000, 0.75)
-      padding-left 5px
-      &:first-child
-        border-left 0
-        padding-left 0
+.tx-top
+  margin-bottom 5px
+  margin-top 5px
+  .item
+    border-left 1px solid rgba(#000000, 0.75)
+    padding-left 5px
+    &:first-child
+      border-left 0
+      padding-left 0
 
-      float left
-      margin-right 5px
+    float left
+    margin-right 5px
 </style>

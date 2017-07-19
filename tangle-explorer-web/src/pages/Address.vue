@@ -36,7 +36,12 @@
         <div class="tx-top">
           <!-- I assume that all the timestamps of a transaction in a bundle are close to eachother,
            so that taking the first timestamp and displaying that as complete time of bundle is good enough. -->
-          <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
+          <div class="item">
+            <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
+          </div>
+          <div class="item">
+            <tx-status :hash="txIO.inputs[0].hash"></tx-status>
+          </div>
         </div>
         <tx-io :viewingHash='hash' :txIO="txIO"></tx-io>
       </div>
@@ -60,6 +65,7 @@ import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 import ClickToSelect from '@/components/ClickToSelect.vue'
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
+import TxStatus from '@/components/TxStatus.vue'
 
 export default {
   components: {
@@ -69,6 +75,7 @@ export default {
     TxIo,
     RelativeTime,
     ClickToSelect,
+    TxStatus,
     IotaBalanceView
   },
   methods: {
@@ -79,12 +86,16 @@ export default {
           return parseInt(balance)
         })
       })
-      iotaNode.iota.api.findTransactionObjects({ addresses: [this.$route.params.hash] }, function(e, r) {
+      iotaNode.iota.api.findTransactionObjects({
+        addresses: [this.$route.params.hash]
+      }, function(e, r) {
         _this.addr.transactions = r
         var bundles = _.uniq(_.map(r, (tx) => {
           return tx.bundle
         }))
-        iotaNode.iota.api.findTransactionObjects({ bundles }, function(e, r) {
+        iotaNode.iota.api.findTransactionObjects({
+          bundles
+        }, function(e, r) {
           _this.txIOs = txToIO(r)
         })
       })

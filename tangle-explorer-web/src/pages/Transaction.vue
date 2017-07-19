@@ -208,14 +208,6 @@ table.striped {
     tr:nth-child(even){background-color: #f2f2f2}
 }
 
-legend {
-  border-bottom 1px solid #595959
-  padding 5px
-  font-size 25px
-  margin-top 15px
-  color #595959
-}
-
 .status-failed {
   color rgb(182, 45, 45)
   font-weight bold

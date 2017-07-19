@@ -1,5 +1,8 @@
 <template lang="html">
-  <div>
+  <div class="container">
+    <legend>
+      Results
+    </legend>
     <search-results v-if="addrResults !== null || txResults !== null" :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>
@@ -36,5 +39,6 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+.container
+  position relative
 </style>

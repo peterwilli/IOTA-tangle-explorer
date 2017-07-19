@@ -32,8 +32,8 @@
       Recent Transactions
     </legend>
     <div class="tx-io" v-if="txIOs">
-      <div class="tx-item" v-for="txIO in txIOs">
-        <div class="tx-top" v-if="txIO.inputs.length > 0">
+      <div class="tx-item" v-for="txIO in txIOs" v-if="txIO.inputs.length > 0">
+        <div class="tx-top">
           <!-- I assume that all the timestamps of a transaction in a bundle are close to eachother,
            so that taking the first timestamp and displaying that as complete time of bundle is good enough. -->
           <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>

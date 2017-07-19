@@ -12,7 +12,7 @@ Improvements:
 ☐ pending i/o display
 
 Bugs:
-☐ btw, I think the pickUnit (at least the version posted here) will show negative values w/ different denominations than intended (missing abs?) `-0.053219001125 Ti -> -53.29.. Gi ?`
+✔ btw, I think the pickUnit (at least the version posted here) will show negative values w/ different denominations than intended (missing abs?) `-0.053219001125 Ti -> -53.29.. Gi ?` (https://iota.codebuffet.co/#/addr/IZ9HIGVBPKBVJEPNHEFCDKCQGPJOILGMATCNKUOZYOUBMRWRMPWTGASMHANZQWPWPKPROMKOZRIFNURHL) @done(2017-07-19 22:41)
 ✔ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates) @done(2017-07-19 00:31)
 ✔ Date format issue on /tx page @done(2017-07-18 21:38)
 ✔ https://iota.codebuffet.co/#/tx/WSXLZZKEBKLJRMIWEUHXUPAZGEONUIEJOSYCIAMORYXDCCCPGBYLATPZIUSGVLKZVMEPOIBSWHHU99999 @done(2017-07-18 21:49)

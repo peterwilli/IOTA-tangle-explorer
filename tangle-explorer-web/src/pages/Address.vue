@@ -23,7 +23,7 @@
           Total balance
         </div>
         <div class="value mono-space">
-          <span class="iota-val">{{ addr.balances[0] }}</span>
+          <iota-balance-view :value='addr.balances[0]'></iota-balance-view>
         </div>
       </div>
       <div class="clearfix"></div>
@@ -59,6 +59,7 @@ import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 import ClickToSelect from '@/components/ClickToSelect.vue'
+import IotaBalanceView from '@/components/IotaBalanceView.vue'
 
 export default {
   components: {
@@ -67,13 +68,16 @@ export default {
     ExpandBox,
     TxIo,
     RelativeTime,
-    ClickToSelect
+    ClickToSelect,
+    IotaBalanceView
   },
   methods: {
     initAddr() {
       var _this = this
       iotaNode.iota.api.getBalances([this.$route.params.hash], 20, function(e, r) {
-        _this.addr.balances = r.balances
+        _this.addr.balances = _.map(r.balances, (balance) => {
+          return parseInt(balance)
+        })
       })
       iotaNode.iota.api.findTransactionObjects({ addresses: [this.$route.params.hash] }, function(e, r) {
         _this.addr.transactions = r

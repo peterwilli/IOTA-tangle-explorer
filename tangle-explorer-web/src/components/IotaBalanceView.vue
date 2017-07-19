@@ -23,6 +23,7 @@ export default {
         '1000000000000': 'Ti',
         '1000000000000000': 'Pi'
       }
+      value = Math.abs(value)
       var closestAmount = Math.floor((value + "").length / 3) * 3
       var key = "1".padEnd(closestAmount + 1, "0")
       if(typeof values[key] !== undefined) {

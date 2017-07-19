@@ -1,6 +1,18 @@
 <template lang="html">
   <expand-box :max-height='250' v-if="(txIO.inputs.length + txIO.outputs.length) > 0">
     <div slot="content" class="io-content">
+      <div class="tx-top">
+        <!-- I assume that all the timestamps of a transaction in a bundle are close to eachother,
+         so that taking the first timestamp and displaying that as complete time of bundle is good enough. -->
+         <div class="item">
+           <tx-status :hash="txIO.inputs[0].hash"></tx-status>
+         </div>
+         <div class="item">
+          <ceri-icon style="float:left; margin-right: 5px" name="fa-clock-o"></ceri-icon> <relative-time :timestamp="txIO.inputs[0].timestamp"></relative-time>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+
       <div class="inputs">
         <div class="input" v-for="tx in txIO.inputs">
           <div class="io-link">
@@ -36,13 +48,17 @@ import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
+import RelativeTime from '@/components/RelativeTime.vue'
+import TxStatus from '@/components/TxStatus.vue'
 
 export default {
   components: {
     Identicon,
     IdentiQr,
     ExpandBox,
-    IotaBalanceView
+    IotaBalanceView,
+    RelativeTime,
+    TxStatus
   },
   props: ['txIO', 'viewingHash']
 }
@@ -74,4 +90,20 @@ export default {
 
     .arrow-icon
       width 100%
+
+
+.tx-item
+  width 100%
+  .tx-top
+    margin-bottom 5px
+    margin-top 5px
+    .item
+      border-left 1px solid rgba(#000000, 0.75)
+      padding-left 5px
+      &:first-child
+        border-left 0
+        padding-left 0
+
+      float left
+      margin-right 5px
 </style>

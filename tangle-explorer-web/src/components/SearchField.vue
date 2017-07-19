@@ -33,7 +33,7 @@ export default {
         return
       }
       if(this.addrResults !== null && this.addrResults.length > 0) {
-        this.goTo('Address', this.addrResults[0].hash)
+        this.goTo('Address', this.addrResults[0].address)
       }
       else if(this.txResults !== null && this.txResults.length > 0) {
         this.goTo('Transaction', this.txResults[0].hash)

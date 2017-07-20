@@ -4,7 +4,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 
-const IOTAPlugin = require('@/utils/IOTAPlugin')
+const IOTAPlugin = require('@/utils/IOTAPlugin').default
 Vue.use(IOTAPlugin)
 
 // Styles (global)

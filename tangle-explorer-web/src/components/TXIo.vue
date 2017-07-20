@@ -91,7 +91,6 @@ export default {
     .arrow-icon
       width 100%
 
-
 .tx-top
   margin-bottom 5px
   margin-top 5px

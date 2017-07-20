@@ -1,3 +1,129 @@
+var blockies = (function() {
+	// The random number is a js implementation of the Xorshift PRNG
+	var randseed = new Array(4); // Xorshift: [x, y, z, w] 32 bit values
+
+	function seedrand(seed) {
+		for (var i = 0; i < randseed.length; i++) {
+			randseed[i] = 0;
+		}
+		for (var i = 0; i < seed.length; i++) {
+			randseed[i%4] = ((randseed[i%4] << 5) - randseed[i%4]) + seed.charCodeAt(i);
+		}
+	}
+
+	function rand() {
+		// based on Java's String.hashCode(), expanded to 4 32bit values
+		var t = randseed[0] ^ (randseed[0] << 11);
+
+		randseed[0] = randseed[1];
+		randseed[1] = randseed[2];
+		randseed[2] = randseed[3];
+		randseed[3] = (randseed[3] ^ (randseed[3] >> 19) ^ t ^ (t >> 8));
+
+		return (randseed[3]>>>0) / ((1 << 31)>>>0);
+	}
+
+	function createColor() {
+		//saturation is the whole color spectrum
+		var h = Math.floor(rand() * 360);
+		//saturation goes from 40 to 100, it avoids greyish colors
+		var s = ((rand() * 60) + 40) + '%';
+		//lightness can be anything from 0 to 100, but probabilities are a bell curve around 50%
+		var l = ((rand()+rand()+rand()+rand()) * 25) + '%';
+
+		var color = 'hsl(' + h + ',' + s + ',' + l + ')';
+		return color;
+	}
+
+	function createImageData(size) {
+		var width = size; // Only support square icons for now
+		var height = size;
+
+		var dataWidth = Math.ceil(width / 2);
+		var mirrorWidth = width - dataWidth;
+
+		var data = [];
+		for(var y = 0; y < height; y++) {
+			var row = [];
+			for(var x = 0; x < dataWidth; x++) {
+				// this makes foreground and background color to have a 43% (1/2.3) probability
+				// spot color has 13% chance
+				row[x] = Math.floor(rand()*2.3);
+			}
+			var r = row.slice(0, mirrorWidth);
+			r.reverse();
+			row = row.concat(r);
+
+			for(var i = 0; i < row.length; i++) {
+				data.push(row[i]);
+			}
+		}
+
+		return data;
+	}
+
+	function buildOpts(opts) {
+		var newOpts = {};
+
+		newOpts.seed = opts.seed || Math.floor((Math.random()*Math.pow(10,16))).toString(16);
+
+		seedrand(newOpts.seed);
+
+		newOpts.size = opts.size || 8;
+		newOpts.scale = opts.scale || 4;
+		newOpts.color = opts.color || createColor();
+		newOpts.bgcolor = opts.bgcolor || createColor();
+		newOpts.spotcolor = opts.spotcolor || createColor();
+
+		return newOpts;
+	}
+
+	function renderIcon(opts, canvas) {
+		var opts = buildOpts(opts || {});
+
+		var imageData = createImageData(opts.size);
+		var width = Math.sqrt(imageData.length);
+
+		canvas.width = canvas.height = opts.size * opts.scale;
+
+		var cc = canvas.getContext('2d');
+		cc.fillStyle = opts.bgcolor;
+		cc.fillRect(0, 0, canvas.width, canvas.height);
+		cc.fillStyle = opts.color;
+
+		for(var i = 0; i < imageData.length; i++) {
+
+			// if data is 0, leave the background
+			if(imageData[i]) {
+				var row = Math.floor(i / width);
+				var col = i % width;
+
+				// if data is 2, choose spot color, if 1 choose foreground
+				cc.fillStyle = (imageData[i] == 1) ? opts.color : opts.spotcolor;
+
+				cc.fillRect(col * opts.scale, row * opts.scale, opts.scale, opts.scale);
+			}
+		}
+		return canvas;
+	}
+
+	function createIcon(opts) {
+		var opts = buildOpts(opts || {});
+		var canvas = document.createElement('canvas');
+
+		renderIcon(opts, canvas);
+
+		return canvas;
+	}
+
+	var api = {
+		create: createIcon,
+		render: renderIcon
+	};
+
+	return api
+
+})();
 /**
  * @fileoverview
  * - Using the 'QRCode for Javascript library'
@@ -85,94 +211,49 @@ var QRCode;
     }
 
     QRCodeModel.prototype = {
-				checksum: function() {
-					// Insecure, small hash function for creating quick, unique images
-				  var k = [], i = 0;
-
-				  for(; i < 64; ){
-				    k[i] = 0|(Math.abs(Math.sin(++i)) * 4294967296);
-				  }
-
-				  function calcMD5(str){
-				    var b, c, d, j,
-				        x = [],
-				        str2 = unescape(encodeURI(str)),
-				        a = str2.length,
-				        h = [b = 1732584193, c = -271733879, ~b, ~c],
-				        i = 0;
-
-				    for(; i <= a; ) x[i >> 2] |= (str2.charCodeAt(i)||128) << 8 * (i++ % 4);
-
-				    x[str = (a + 8 >> 6) * 16 + 14] = a * 8;
-				    i = 0;
-
-				    for(; i < str; i += 16){
-				      a = h; j = 0;
-				      for(; j < 64; ){
-				        a = [
-				          d = a[3],
-				          ((b = a[1]|0) +
-				            ((d = (
-				              (a[0] +
-				                [
-				                  b & (c = a[2]) | ~b&d,
-				                  d & b | ~d & c,
-				                  b ^ c ^ d,
-				                  c ^ (b | ~d)
-				                ][a = j >> 4]
-				              ) +
-				              (k[j] +
-				                (x[[
-				                  j,
-				                  5 * j + 1,
-				                  3 * j + 5,
-				                  7 * j
-				                ][a] % 16 + i]|0)
-				              )
-				            )) << (a = [
-				              7, 12, 17, 22,
-				              5,  9, 14, 20,
-				              4, 11, 16, 23,
-				              6, 10, 15, 21
-				            ][4 * a + j++ % 4]) | d >>> 32 - a)
-				          ),
-				          b,
-				          c
-				        ];
-				      }
-				      for(j = 4; j; ) h[--j] = h[j] + a[j];
-				    }
-
-				    str = '';
-				    for(; j < 32; ) str += ((h[j >> 3] >> ((1 ^ j++ & 7) * 4)) & 15).toString(16);
-
-				    return str;
-				  }
-				  return calcMD5;
-				}(),
         addData: function(data) {
             var newData = new QR8bitByte(data);
             this.dataList.push(newData);
             this.dataCache = null;
         },
-				shadeColor(color, percent) {
-						var num = parseInt(color.slice(1),16), amt = Math.round(2.55 * percent), R = (num >> 16) + amt, G = (num >> 8 & 0x00FF) + amt, B = (num & 0x0000FF) + amt;
-						return "#" + (0x1000000 + (R<255?R<1?0:R:255)*0x10000 + (G<255?G<1?0:G:255)*0x100 + (B<255?B<1?0:B:255)).toString(16).slice(1);
-				},
-				identiColor(row, col) {
-					var hash = this.checksum(this.dataList[0].data)
-					var colors = ['#7fd7fc', '#dfe876', '#f25068', '#9fd59a']
-					var filteredColors = []
-					for(var i = 0; i < 2; i++) {
-						filteredColors.push(colors[hash.charCodeAt(i) % colors.length])
-					}
-					var colHalf = Math.floor(Math.abs(Math.floor(this.moduleCount / 2) - (col)))
-					var rowIndex = (hash.charCodeAt((colHalf * Math.ceil(row / 10)) % hash.length)) % this.moduleCount
-					var color = filteredColors[(rowIndex) % filteredColors.length]
-					if(this.isDark(row, col)) {
-						return this.shadeColor(color, -60)
-					}
-					return color
+        getIdentiSize() {
+          var identiSize = Math.ceil(this.moduleCount * 0.25)
+          identiSize = (identiSize % 2 == 0) ? identiSize : (identiSize + 1)
+          return identiSize
+        },
+        inStartOfIdenticon(row, col) {
+          var identiSize = this.getIdentiSize()
+          var realSize = Math.round((this.moduleCount - identiSize) / 2)
+          return (row > realSize && row < this.moduleCount - realSize) &&
+                 (col > realSize && col < this.moduleCount - realSize)
+        },
+        identiColor(row, col) {
+          if(window.outputs === undefined) {
+            window.outputs = []
+          }
+          if(this.inStartOfIdenticon(row, col)) {
+            var identiSize = this.getIdentiSize()
+            var realSize = Math.round((this.moduleCount - identiSize) / 2)
+            var icon = blockies.create({
+                seed: this.dataList[0].data,
+                size: identiSize,
+                scale: 1
+            })
+            var rgbToHex = (r, g, b) => {
+                if (r > 255 || g > 255 || b > 255)
+                    throw "Invalid color component";
+                return ((r << 16) | (g << 8) | b).toString(16);
+            }
+  					var iconCtx = icon.getContext('2d')
+            var identiRow = row - realSize
+            var identiCol = col - realSize
+            var p = iconCtx.getImageData(identiCol, identiRow, 1, 1).data
+            var color = "#" + ("000000" + rgbToHex(p[0], p[1], p[2])).slice(-6);
+            return color
+          }
+          else {
+            return this.isDark(row, col) ? '#000' : '#fff'
+          }
 				},
         isDark: function(row, col) {
             if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {

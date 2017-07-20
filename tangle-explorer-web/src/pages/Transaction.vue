@@ -228,7 +228,7 @@ table.striped {
 
   .tx-info
     width auto
-    padding 5px
+    padding 10px
     overflow:hidden
     .name
       font-weight bold

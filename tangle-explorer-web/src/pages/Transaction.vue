@@ -61,6 +61,7 @@
     <legend>
       Transaction details
     </legend>
+    <tangle-graph :txs='[tx]' :viewingHash='tx.hash'></tangle-graph>
     <table class="striped">
       <tbody>
           <tr>
@@ -137,6 +138,7 @@ import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 import ClickToSelect from '@/components/ClickToSelect.vue'
 import TxStatus from '@/components/TxStatus.vue'
+import TangleGraph from '@/components/TangleGraph.vue'
 
 export default {
   components: {
@@ -146,7 +148,8 @@ export default {
     RelativeTime,
     IotaBalanceView,
     TxStatus,
-    ClickToSelect
+    ClickToSelect,
+    TangleGraph
   },
   methods: {
     getIOFromTX() {

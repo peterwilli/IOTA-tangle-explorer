@@ -45,7 +45,6 @@ const iotaNode = require("@/utils/iota-node")
 const txToIO = require('@/utils/tx-to-io.js').default
 
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
-import Identicon from '@/components/Identicon.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
@@ -53,7 +52,6 @@ import TxStatus from '@/components/TxStatus.vue'
 
 export default {
   components: {
-    Identicon,
     IdentiQr,
     ExpandBox,
     IotaBalanceView,

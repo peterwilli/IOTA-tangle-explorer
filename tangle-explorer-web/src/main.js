@@ -15,7 +15,6 @@ window.customElements.define("ceri-icon", require("ceri-icon"))
 require('@/lib/identi-qrcode')
 require('@/lib/iota')
 require("@/utils/iota-node")
-require('@/lib/avatars')
 
 Vue.config.productionTip = false
 

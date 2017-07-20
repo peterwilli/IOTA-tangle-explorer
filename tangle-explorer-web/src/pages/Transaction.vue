@@ -66,7 +66,7 @@
     <legend>
       Transaction details
     </legend>
-    table class="striped">
+    <table class="striped">
       <tbody>
           <tr>
               <td width="20%">Transaction Hash</td>

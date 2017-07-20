@@ -1,14 +1,25 @@
 <template lang="html">
-  <div class="graph-container">
-    <div class="toolbar">
-      <div v-if="network !== null" class="button" @click="increaseDepth()">
-        Increase Depth
-      </div>
-      <div class='button' v-else>
-        <pulse-loader :color="'#fff'" size='13px'></pulse-loader>
-      </div>
+  <div>
+    <div class="pusher" v-if="shouldShowPusher">
+
     </div>
-    <div class="graph" ref="graph"></div>
+    <div class="graph-container" ref="container">
+      <div class="toolbar">
+        <div v-if="network !== null" class="button" @click="increaseDepth()">
+          Increase Depth
+        </div>
+        <div class='button' v-else>
+          <pulse-loader :color="'#fff'" size='13px'></pulse-loader>
+        </div>
+
+        <div class="right">
+          <div class="button" @click="fullscreenToggle()">
+            <ceri-icon name="fa-expand"></ceri-icon>
+          </div>
+        </div>
+      </div>
+      <div class="graph" ref="graph"></div>
+    </div>
   </div>
 </template>
 
@@ -18,6 +29,7 @@ const vis = require('vis')
 const _ = require('lodash')
 require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
+const $ = require('jquery')
 
 export default {
   props: ['txs', 'viewingHash'],
@@ -37,6 +49,56 @@ export default {
         return '#48aacf'
       } else {
         return '#ddb013'
+      }
+    },
+    fullscreenToggle() {
+      this.expanded = !this.expanded
+      var container = this.$refs.container
+      var $container = $(container)
+      if(this.expanded) {
+        var offset = $container.offset()
+        var rt = $(window).width() - offset.left - $container.width()
+        var bt = $(window).height() - offset.top - $container.height()
+
+        this.oldOffset = {offset, bt, rt}
+        this.shouldShowPusher = true
+        $container.css({
+          position: 'fixed',
+          left: offset.left + "px",
+          top: offset.top + "px",
+          right: rt + "px",
+          bottom: bt + "px"
+        })
+        setTimeout(() => {
+          $container.css({
+            height: 'auto',
+            top: "80px",
+            bottom: "0px",
+            left: "0px",
+            right: "0px"
+          })
+        }, 0)
+      }
+      else {
+        var {offset, bt, rt} = this.oldOffset
+
+        $container.css({
+          left: offset.left + "px",
+          top: offset.top + "px",
+          right: rt + "px",
+          bottom: bt + "px"
+        })
+        $container.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', () => {
+          this.shouldShowPusher = false
+          $container.css({
+            position: 'relative',
+            height: '250px',
+            left: 'auto',
+            right: 'auto',
+            top: 'auto',
+            bottom: 'auto'
+          })
+        })
       }
     },
     txsToNodes(txs) {
@@ -118,6 +180,10 @@ export default {
       })
     },
     destroyNetwork() {
+      if(this.$route.query.keepNestedTX === undefined) {
+        this.txsToRender = []
+      }
+
       if (this.network !== null) {
         this.network.destroy()
         this.network = null
@@ -125,6 +191,9 @@ export default {
     },
     update() {
       this.destroyNetwork()
+      if(this.txsToRender === null || this.txsToRender.length === 0) {
+        this.txsToRender = this.txs.slice(0)
+      }
       var container = this.$refs.graph
       var nodes = this.txsToNodes(this.txsToRender)
       var edges = this.txsToEdges(this.txsToRender)
@@ -160,6 +229,9 @@ export default {
           name: 'Transaction',
           params: {
             hash: this.getNodeAt(params.pointer.DOM)
+          },
+          query: {
+            keepNestedTX: true
           }
         })
       })
@@ -176,11 +248,13 @@ export default {
   data() {
     return {
       network: null,
-      txsToRender: null
+      txsToRender: null,
+      expanded: false,
+      oldOffset: null,
+      shouldShowPusher: false
     }
   },
   mounted() {
-    this.txsToRender = this.txs.slice(0)
     this.update()
     this.increaseDepth()
   }
@@ -190,6 +264,11 @@ export default {
 <style lang="stylus" scoped>
   .graph-container
     position relative
+    height 250px
+    transition all 0.5s ease
+
+  .pusher
+    height 250px
 
   .toolbar
     left 0
@@ -198,6 +277,9 @@ export default {
     background rgba(255, 255, 255, 0.2)
     border-bottom 1px solid #333
     z-index: 1
+    .right
+      float right
+
     .button
       color #fff
       cursor pointer
@@ -211,5 +293,5 @@ export default {
 
   .graph
     background #222222
-    height 250px
+    height 100%
 </style>

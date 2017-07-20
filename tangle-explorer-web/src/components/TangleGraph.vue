@@ -1,8 +1,11 @@
 <template lang="html">
   <div class="graph-container">
     <div class="toolbar">
-      <div class="button" @click="increaseDepth()">
+      <div v-if="network !== null" class="button" @click="increaseDepth()">
         Increase Depth
+      </div>
+      <div class='button' v-else>
+        <pulse-loader :color="'#fff'" size='13px'></pulse-loader>
       </div>
     </div>
     <div class="graph" ref="graph"></div>
@@ -10,6 +13,7 @@
 </template>
 
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 const vis = require('vis')
 const _ = require('lodash')
 require('@/lib/iota')
@@ -17,6 +21,9 @@ const iotaNode = require("@/utils/iota-node")
 
 export default {
   props: ['txs', 'viewingHash'],
+  components: {
+    PulseLoader
+  },
   methods: {
     processLabel(lbl) {
       if (lbl === this.viewingHash) {

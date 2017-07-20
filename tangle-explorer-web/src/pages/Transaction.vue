@@ -59,10 +59,14 @@
       No Tx I/O found :(
     </div>
     <legend>
-      Transaction details
+      Position in Tangle
     </legend>
     <tangle-graph :txs='[tx]' :viewingHash='tx.hash'></tangle-graph>
-    <table class="striped">
+
+    <legend>
+      Transaction details
+    </legend>
+    table class="striped">
       <tbody>
           <tr>
               <td width="20%">Transaction Hash</td>

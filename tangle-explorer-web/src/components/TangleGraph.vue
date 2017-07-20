@@ -180,8 +180,18 @@ export default {
       })
     },
     destroyNetwork() {
-      if(this.$route.query.keepNestedTX === undefined) {
-        this.txsToRender = []
+      if(this.txsToRender) {
+        var foundOriginalHash = false
+        for(var tx of this.txsToRender) {
+          if(tx.hash === this.viewingHash) {
+            foundOriginalHash = true
+            break
+          }
+        }
+
+        if(!foundOriginalHash) {
+          this.txsToRender = []
+        }
       }
 
       if (this.network !== null) {

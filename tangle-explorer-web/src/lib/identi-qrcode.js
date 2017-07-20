@@ -217,7 +217,7 @@ var QRCode;
             this.dataCache = null;
         },
         getIdentiSize() {
-          var identiSize = Math.ceil(this.moduleCount * 0.25)
+          var identiSize = Math.ceil(this.moduleCount * 0.30)
           identiSize = (identiSize % 2 == 0) ? identiSize : (identiSize + 1)
           return identiSize
         },
@@ -236,8 +236,8 @@ var QRCode;
             var realSize = Math.round((this.moduleCount - identiSize) / 2)
             var icon = blockies.create({
                 seed: this.dataList[0].data,
-                size: identiSize,
-                scale: 1
+                size: identiSize / 2,
+                scale: 2
             })
             var rgbToHex = (r, g, b) => {
                 if (r > 255 || g > 255 || b > 255)

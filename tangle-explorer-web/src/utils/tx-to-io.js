@@ -1,4 +1,6 @@
 const txSort = require('@/utils/tx-sort-timestamp.js')
+const _ = require('lodash')
+
 export default (r) => {
   r.sort(txSort)
   var res = {}
@@ -23,5 +25,11 @@ export default (r) => {
     }
   }
   res = Object.values(res)
+  res = _.filter(res, (txs) => {
+    return (txs.inputs.length + txs.outputs.length) > 0
+  })
+  res.sort((a, b) => {
+    return a.inputs[0].timestamp < b.inputs[0].timestamp
+  })
   return res
 }

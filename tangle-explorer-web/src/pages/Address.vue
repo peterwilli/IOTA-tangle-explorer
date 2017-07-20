@@ -12,7 +12,7 @@
       </div>
       <div class="addr-box">
         <div class="qr">
-          <identi-qr :size='500' :contents="$getQRCode(route.params.hash)"></identi-qr>
+          <identi-qr :size='500' :contents="$getQRCode($route.params.hash)"></identi-qr>
         </div>
         <div slot='content' class="addr mono-space">
           <click-to-select :text='$route.params.hash'></click-to-select>

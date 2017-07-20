@@ -3,6 +3,7 @@
 </template>
 
 <script>
+const IdentiQr = require('@/lib/identi-qrcode.js')
 export default {
   props: {
     contents: {
@@ -35,11 +36,11 @@ export default {
         this.$refs.qrcode.innerHTML = ""
       }
 
-      this.qrcode = new QRCode(this.$refs.qrcode, {
+      this.qrcode = new IdentiQr(this.$refs.qrcode, {
       	text: this.contents,
       	width: this.size,
       	height: this.size,
-      	correctLevel : QRCode.CorrectLevel.M
+      	correctLevel : IdentiQr.CorrectLevel.M
       })
     }
   },

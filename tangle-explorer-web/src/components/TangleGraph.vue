@@ -14,7 +14,8 @@
 
         <div class="right">
           <div class="button" @click="fullscreenToggle()">
-            <ceri-icon name="fa-expand"></ceri-icon>
+            <ceri-icon v-if="!expanded" name="fa-expand"></ceri-icon>
+            <ceri-icon v-else name="fa-compress"></ceri-icon>
           </div>
         </div>
       </div>

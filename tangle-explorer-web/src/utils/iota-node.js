@@ -29,17 +29,31 @@ var iota = new IOTA({
 });
 obj.iota = iota
 
-var refreshNodeInfo = function() {
-  iota.api.getNodeInfo(function(error, success) {
-      if (error) {
-          log(error);
-      } else {
-          obj.nodeInfo = success
-      }
-  })
+var refreshNodeInfoTmr = null
+
+obj.unsubscribe = (event) => {
+  if(event === "node-info") {
+    if(refreshNodeInfoTmr !== null) {
+      clearInterval(refreshNodeInfoTmr)
+      refreshNodeInfoTmr = null
+    }
+  }
 }
 
-setInterval(refreshNodeInfo, 2000)
-refreshNodeInfo()
+obj.subscribe = (event) => {
+  if(event === "node-info") {
+    var refreshNodeInfo = function() {
+      iota.api.getNodeInfo(function(error, success) {
+          if (error) {
+              log(error);
+          } else {
+              obj.nodeInfo = success
+          }
+      })
+    }
 
+    refreshNodeInfoTmr = setInterval(refreshNodeInfo, 2000)
+    refreshNodeInfo()
+  }
+}
 module.exports = obj

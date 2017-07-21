@@ -6,9 +6,18 @@
 
 <script>
 import NodeInfo from '@/components/NodeInfo.vue'
+require('@/lib/iota')
+var iotaNode = require("@/utils/iota-node")
+
 export default {
   components: {
     NodeInfo
+  },
+  beforeDestroy() {
+    iotaNode.unsubscribe('node-info')
+  },
+  mounted() {
+    iotaNode.subscribe('node-info')
   }
 };
 </script>

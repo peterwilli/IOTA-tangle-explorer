@@ -126,7 +126,7 @@
     </table>
   </div>
   <div class="loading" v-else>
-
+    <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
 </template>
 
@@ -135,6 +135,7 @@ require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 const txToIO = require('@/utils/tx-to-io.js').default
 
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import TxIo from '@/components/TXIo.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
@@ -153,7 +154,8 @@ export default {
     IotaBalanceView,
     TxStatus,
     ClickToSelect,
-    TangleGraph
+    TangleGraph,
+    PulseLoader
   },
   methods: {
     getIOFromTX() {
@@ -192,6 +194,11 @@ export default {
 
 <style lang="stylus" scoped>
 @import "../styles/media-mixin.styl"
+
+
+.loading
+  text-align center
+  padding 25px
 
 .tx-io
   padding: 8px

@@ -3,6 +3,9 @@
     <div class='container'>
       <div class="madeby">
         IOTA Tangle Explorer by Peter Willemsen
+        <br  />
+        <a target="_blank" href="https://github.com/peterwilli/IOTA-tangle-explorer">Source Code</a> |
+        <router-link :to="{ name: 'Address', params: { hash: 'GKMSVVVOAHTZSBTYALJVNHTNBQRECLRRDVMUKCXQZUTOOIDT9DTQLJHMPCYOJZIJR9DABMPOUODEUMJWOOVHMKD9NR' }}">Developer Donation</router-link>
         <br />
         Made with <ceri-icon style="color:#f45353" name="fa-heart"></ceri-icon> in The Netherlands
       </div>

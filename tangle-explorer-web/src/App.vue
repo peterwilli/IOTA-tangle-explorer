@@ -2,14 +2,18 @@
   <div id="app">
     <top-bar></top-bar>
     <router-view></router-view>
+    <bottom-bar></bottom-bar>
   </div>
 </template>
 
 <script>
 import TopBar from '@/components/TopBar.vue'
+import BottomBar from '@/components/BottomBar.vue'
+
 export default {
   components: {
-    TopBar
+    TopBar,
+    BottomBar
   },
   name: 'app',
 };

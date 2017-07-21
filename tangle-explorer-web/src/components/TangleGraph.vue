@@ -58,14 +58,14 @@ export default {
       if(this.expanded) {
         var offset = $container.offset()
         var rt = $(window).width() - offset.left - $container.width()
-        var bt = $(window).height() - offset.top - $container.height()
+        var bt = $(window).height() - (offset.top - $(window).scrollTop()) - $container.height()
 
         this.oldOffset = {offset, bt, rt}
         this.shouldShowPusher = true
         $container.css({
           position: 'fixed',
           left: offset.left + "px",
-          top: offset.top + "px",
+          top: (offset.top - $(window).scrollTop()) + "px",
           right: rt + "px",
           bottom: bt + "px"
         })
@@ -81,10 +81,9 @@ export default {
       }
       else {
         var {offset, bt, rt} = this.oldOffset
-
         $container.css({
           left: offset.left + "px",
-          top: offset.top + "px",
+          top: (offset.top - $(window).scrollTop()) + "px",
           right: rt + "px",
           bottom: bt + "px"
         })

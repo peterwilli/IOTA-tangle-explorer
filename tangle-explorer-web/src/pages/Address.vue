@@ -117,16 +117,6 @@ export default {
   padding 5px
   &:nth-child(even){background-color: #f2f2f2}
 
-table.striped {
-    border-collapse: collapse;
-    width: 100%;
-    th, td {
-        text-align: left;
-        padding: 8px;
-    }
-    tr:nth-child(even){background-color: #f2f2f2}
-}
-
 legend {
   border-bottom 1px solid #595959
   padding 5px

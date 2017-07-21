@@ -1,43 +1,47 @@
 <template lang="html">
   <div class='node-info' v-if="iotaNode.nodeInfo.appName !== null">
     <legend>Node Info</legend>
-    <table class="wrap-table table table-striped">
+    <table class="wrap striped">
         <tbody>
             <tr>
                 <td>Application Name</td>
-                <td>{{ iotaNode.nodeInfo.appName }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.appName }}</td>
             </tr>
             <tr>
                 <td>Application Version</td>
-                <td>{{ iotaNode.nodeInfo.appVersion }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.appVersion }}</td>
             </tr>
             <tr>
                 <td> Latest Milestone</td>
-                <td>{{ iotaNode.nodeInfo.latestMilestone }}</td>
+                <td class="mono-space">
+                  <router-link :to="{ name: 'Transaction', params: { hash: iotaNode.nodeInfo.latestMilestone }}">{{ iotaNode.nodeInfo.latestMilestone }}</router-link>
+                </td>
             </tr>
             <tr>
                 <td>Lastest Milestone Index</td>
-                <td>{{ iotaNode.nodeInfo.latestMilestoneIndex }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.latestMilestoneIndex }}</td>
             </tr>
             <tr>
                 <td> Lastest Solid Subtangle Milestone</td>
-                <td>{{ iotaNode.nodeInfo.latestSolidSubtangleMilestone }}</td>
+                <td class="mono-space">
+                  <router-link :to="{ name: 'Transaction', params: { hash: iotaNode.nodeInfo.latestSolidSubtangleMilestone }}">{{ iotaNode.nodeInfo.latestSolidSubtangleMilestone }}</router-link>
+                </td>
             </tr>
             <tr>
                 <td>Lastest Solid Subtangle Milestone Index</td>
-                <td>{{ iotaNode.nodeInfo.latestSolidSubtangleMilestoneIndex }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.latestSolidSubtangleMilestoneIndex }}</td>
             </tr>
             <tr>
                 <td>Number of Neighbours</td>
-                <td>{{ iotaNode.nodeInfo.neighbors }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.neighbors }}</td>
             </tr>
             <tr>
                 <td>Time</td>
-                <td>{{ iotaNode.nodeInfo.time }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.time }}</td>
             </tr>
             <tr>
                 <td>Number of tips</td>
-                <td>{{ iotaNode.nodeInfo.tips }}</td>
+                <td class="mono-space">{{ iotaNode.nodeInfo.tips }}</td>
             </tr>
         </tbody>
     </table>
@@ -57,5 +61,6 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="stylus">
+
 </style>

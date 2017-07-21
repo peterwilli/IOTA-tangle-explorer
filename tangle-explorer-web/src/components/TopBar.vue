@@ -1,7 +1,9 @@
 <template lang="html">
   <div class='top-bar'>
     <div class='container'>
-      <img class='logo' src="../assets/logo.png" />
+      <router-link to="/">
+        <img class='logo' src="../assets/logo.png" />
+      </router-link>
       <div class='right'>
         <div class='search'>
           <search-field></search-field>

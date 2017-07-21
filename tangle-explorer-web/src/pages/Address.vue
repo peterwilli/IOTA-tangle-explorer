@@ -37,8 +37,8 @@
       </div>
     </div>
   </div>
-  <div class="loading" v-else>
-
+  <div class="page-loading" v-else>
+    <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
 </template>
 
@@ -55,6 +55,7 @@ import RelativeTime from '@/components/RelativeTime.vue'
 import ClickToSelect from '@/components/ClickToSelect.vue'
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import TxStatus from '@/components/TxStatus.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
   components: {
@@ -64,7 +65,8 @@ export default {
     RelativeTime,
     ClickToSelect,
     TxStatus,
-    IotaBalanceView
+    IotaBalanceView,
+    PulseLoader
   },
   methods: {
     initAddr() {

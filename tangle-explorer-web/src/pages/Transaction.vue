@@ -125,7 +125,7 @@
       </tbody>
     </table>
   </div>
-  <div class="loading" v-else>
+  <div class="page-loading" v-else>
     <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
 </template>

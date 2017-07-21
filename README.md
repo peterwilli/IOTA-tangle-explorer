@@ -1,5 +1,7 @@
 # IOTA Tangle Explorer
 
+[Donate to developer](https://iota.codebuffet.co/#/addr/GKMSVVVOAHTZSBTYALJVNHTNBQRECLRRDVMUKCXQZUTOOIDT9DTQLJHMPCYOJZIJR9DABMPOUODEUMJWOOVHMKD9NR) | [Live demo](https://iota.codebuffet.co)
+
 ## Introduction
 
 This is a complete recode of the Tangle Explorer, with the following differences on <https://github.com/utamaro/tangler>:

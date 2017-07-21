@@ -225,7 +225,10 @@ export default {
           borderWidth: 2
         },
         edges: {
-          width: 2
+          width: 2,
+          arrows: {
+            to: true
+          }
         }
       };
 

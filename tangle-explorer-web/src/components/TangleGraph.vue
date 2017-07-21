@@ -180,15 +180,8 @@ export default {
       })
     },
     destroyNetwork() {
-      if(this.txsToRender) {
-        var foundOriginalHash = false
-        for(var tx of this.txsToRender) {
-          if(tx.hash === this.viewingHash) {
-            foundOriginalHash = true
-            break
-          }
-        }
-
+      if(this.txsToRender && this.data) {
+        var foundOriginalHash = this.data.nodes.get(this.viewingHash)
         if(!foundOriginalHash) {
           this.txsToRender = []
         }
@@ -213,6 +206,8 @@ export default {
         nodes: nodes,
         edges: edges
       };
+
+      this.data = data
 
       var options = {
         nodes: {
@@ -239,9 +234,6 @@ export default {
           name: 'Transaction',
           params: {
             hash: this.getNodeAt(params.pointer.DOM)
-          },
-          query: {
-            keepNestedTX: true
           }
         })
       })
@@ -258,6 +250,7 @@ export default {
   data() {
     return {
       network: null,
+      data: null,
       txsToRender: null,
       expanded: false,
       oldOffset: null,

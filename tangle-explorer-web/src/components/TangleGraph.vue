@@ -209,6 +209,12 @@ export default {
       this.data = data
 
       var options = {
+        physics: {
+          enabled: false
+        },
+        layout: {
+          randomSeed: 80085
+        },
         nodes: {
           shape: 'dot',
           size: 30,

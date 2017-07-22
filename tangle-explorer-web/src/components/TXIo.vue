@@ -79,6 +79,7 @@ export default {
     overflow hidden
     text-overflow ellipsis
     white-space: nowrap
+    line-height 28px
 
   .arrow
     float left

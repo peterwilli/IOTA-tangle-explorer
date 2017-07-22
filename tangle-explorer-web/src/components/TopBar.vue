@@ -28,6 +28,7 @@ export default {
 
 .logo {
   margin-top 5px
+  margin-left 5px
 }
 .search {
   margin-top 20px

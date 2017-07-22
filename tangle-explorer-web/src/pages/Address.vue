@@ -134,9 +134,14 @@ legend {
   .tx-info
     width auto
     padding 5px
+    padding-top 0px
+    padding-left 12px
     overflow:hidden
     .name
+    {
       font-weight bold
+      margin-bottom 2px
+    }
     .value
       word-break break-all
       font-size 15px
@@ -156,9 +161,11 @@ legend {
     .addr
       font-size 15px
       word-break break-all
+      margin-top 4px
 
   .title
     height 40px
+    margin-bottom 10px
 
     .tx-info-title, .addr-box-title
       font-weight bold

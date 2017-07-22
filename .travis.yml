@@ -3,7 +3,8 @@ node_js:
 - '6'
 - '7'
 script:
-  - cd tangle-explorer-webnpm install
+  - cd tangle-explorer-web
+  - npm install
   - npm run build
   - tar -cvzf dist.tar.gz dist
 deploy:

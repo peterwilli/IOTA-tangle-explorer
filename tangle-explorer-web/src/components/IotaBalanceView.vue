@@ -1,5 +1,5 @@
 <template lang="html">
-  <span class="iota-val">{{ convertToUnits(value) }}</span>
+  <span>{{ convertToUnits(value) }}</span>
 </template>
 
 <script>

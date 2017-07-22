@@ -1,8 +1,11 @@
 language: node_js
 node_js:
-- '4'
+- '6'
 - '7'
-script: cd tangle-explorer-web && npm install && npm run build && tar -cvzf dist.tar.gz dist
+script:
+  - cd tangle-explorer-webnpm install
+  - npm run build
+  - tar -cvzf dist.tar.gz dist
 deploy:
   provider: releases
   api_key:

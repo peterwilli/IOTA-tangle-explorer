@@ -21,3 +21,12 @@ Assuming you have NodeJS.
 - cd to tangle-explorer-web
 - run `npm install`
 - run `npm run dev` and a web browser will pop up with the page.
+
+## Contributors
+
+Contributor | Work
+----------- | -------------------------------------------------------------------
+@peterwilli | Initiator
+@arancauchi | More pleasant spacing, typography improvements, search improvements
+
+Thanks to these people for their improvements! If you contribute regularly, feel free to update this section with your Github username :)

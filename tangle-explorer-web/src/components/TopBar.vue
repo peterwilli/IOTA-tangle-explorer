@@ -8,6 +8,10 @@
         <div class='search'>
           <search-field></search-field>
         </div>
+        <!-- TODO: Add settings page :)
+        <div class="bar-button">
+          <ceri-icon class="icon" name="fa-gear"></ceri-icon>
+        </div> -->
       </div>
     </div>
   </div>
@@ -26,17 +30,17 @@ export default {
 <style lang="stylus" scoped>
 @import "../styles/media-mixin.styl"
 
-.logo {
+.logo
   margin-top 5px
   margin-left 5px
-}
-.search {
+
+.search
   margin-top 20px
-}
-.right {
+
+.right
   float right
-}
-.top-bar {
+
+.top-bar
   position fixed
   top 0
   left 0
@@ -46,5 +50,13 @@ export default {
   padding-left 10px
   padding-right 10px
   z-index: 2
-}
+
+  .bar-button
+    float left
+
+  .icon
+    color #fff
+    float left
+    font-size 40px
+    line-height 80px
 </style>

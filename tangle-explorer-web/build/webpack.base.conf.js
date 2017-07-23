@@ -47,7 +47,8 @@ module.exports = {
             "fa-arrow-circle-o-right",
             "fa-expand",
             "fa-compress",
-            "fa-heart"
+            "fa-heart",
+            "fa-gear"
           ]
         }
       },

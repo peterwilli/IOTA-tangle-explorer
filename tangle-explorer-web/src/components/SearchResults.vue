@@ -4,7 +4,7 @@
       <div class="cut-text hash"><span class="result-cat">Hash: </span>{{ result.hash }}</div>
       <div class="cut-text address">
         <ceri-icon name="fa-user"></ceri-icon>
-        <span class="result-cat">Address: </span> {{ result.address }}     
+        <span class="result-cat">Address: </span> {{ result.address }}
       </div>
       <div class="cut-text time">
         <ceri-icon name="fa-clock-o"></ceri-icon>
@@ -75,7 +75,7 @@ export default {
 
   .result
     padding 5px
-    padding-left 0px
+    padding-left 10px
     cursor pointer
     .result-cat
       font-weight bold

@@ -1,17 +1,18 @@
 <template lang="html">
   <div class='top-bar'>
     <div class='container'>
-      <router-link to="/">
-        <img class='logo' src="../assets/logo.png" />
-      </router-link>
+      <div class="left">
+        <router-link to="/">
+          <img class='logo' src="../assets/logo.png" />
+        </router-link>
+      </div>
       <div class='right'>
+        <div class="bar-button">
+          <ceri-icon class="icon" name="fa-gear"></ceri-icon>
+        </div>
         <div class='search'>
           <search-field></search-field>
         </div>
-        <!-- TODO: Add settings page :)
-        <div class="bar-button">
-          <ceri-icon class="icon" name="fa-gear"></ceri-icon>
-        </div> -->
       </div>
     </div>
   </div>
@@ -35,10 +36,15 @@ export default {
   margin-left 5px
 
 .search
-  margin-top 20px
+  margin-top 10px
+  overflow: hidden
 
 .right
-  float right
+  overflow: hidden
+
+.left
+  float left
+  width 100px
 
 .top-bar
   position fixed
@@ -52,11 +58,11 @@ export default {
   z-index: 2
 
   .bar-button
-    float left
+    float right
+    margin-left 5px
+    margin-top 20px
 
   .icon
     color #fff
-    float left
     font-size 40px
-    line-height 80px
 </style>

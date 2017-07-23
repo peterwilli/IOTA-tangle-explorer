@@ -84,10 +84,10 @@ export default {
 
 <style lang="stylus" scoped>
 .search
-  position relative
   width 100%
   input
     border 1px solid #333
     padding 10px
-    width 400px
+    width 80%
+    float right
 </style>

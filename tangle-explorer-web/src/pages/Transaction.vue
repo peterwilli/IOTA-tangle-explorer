@@ -69,51 +69,51 @@
     <table class="striped">
       <tbody>
           <tr>
-              <td width="20%">Transaction Hash</td>
+              <td title="Hash of the current Transaction" width="20%">Transaction Hash</td>
               <td class="val mono-space">{{ tx.hash }}</td>
           </tr>
           <tr>
-            <td>Address</td>
+            <td title="The Output Address of all spent inputs, before change is returned">Address</td>
             <td class="val mono-space"><router-link :title='tx.address' :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link></td>
           </tr>
           <tr>
-              <td>Value</td>
+              <td title="Value transferred in this Transaction">Value</td>
               <td class="val mono-space"><iota-balance-view :value='tx.value'></iota-balance-view></td>
           </tr>
           <tr>
-              <td>Tag</td>
+              <td title="Tag sent with this Transaction, encoded in Trytes">Tag</td>
               <td class="val mono-space">{{ tx.tag }}</td>
           </tr>
           <tr>
-            <td>Timestamp</td>
+            <td title="Time at which this Transaction was generated">Timestamp</td>
             <td class="val mono-space">{{ $localeTimestamp(tx.timestamp) }} (<relative-time :timestamp="tx.timestamp"></relative-time>)</td>
           </tr>
           <tr>
-              <td>Current Index in Bundle</td>
+              <td title="The current Transaction Index in the current Bundle">Current Index in Bundle</td>
               <td class="val mono-space">{{ tx.currentIndex }}</td>
           </tr>
           <tr>
-              <td>Last Index of Bundle</td>
+              <td title="The last Transaction Index in the current Bundle">Last Index of Bundle</td>
               <td class="val mono-space">{{ tx.lastIndex }}</td>
           </tr>
           <tr>
-              <td>Trunk Transaction Hash</td>
+              <td title="Hash of the Trunk Transaction which this tranasction approves">Trunk Transaction Hash</td>
               <td class="val mono-space"><router-link :title='tx.trunkTransaction' :to="{ name: 'Transaction', params: { hash: tx.trunkTransaction }}">{{ tx.trunkTransaction }}</router-link></td>
          </tr>
           <tr>
-              <td>Branch Transaction Hash</td>
+              <td title="Hash of the Branch Transaction which this Tranasction approves">Branch Transaction Hash</td>
               <td class="val mono-space"><router-link :title='tx.branchTransaction' :to="{ name: 'Transaction', params: { hash: tx.branchTransaction }}">{{ tx.branchTransaction }}</router-link></td>
          </tr>
           <tr>
-              <td>Bundle Hash</td>
+              <td td="Hash of the Bundle which this Transaction is contained in">Bundle Hash</td>
               <td class="val mono-space"><router-link :title='tx.bundle' :to="{ name: 'Bundle', params: { hash: tx.bundle }}">{{ tx.bundle }}</router-link></td>
           </tr>
           <tr>
-              <td>Nonce</td>
+              <td title="Value to verify Proof of Work">Nonce</td>
               <td class="val mono-space">{{ tx.nonce }}</td>
           </tr>
           <tr >
-              <td>Message or Signature</td>
+              <td title="Message sent with this transaction, encoded in trytes">Message or Signature</td>
               <td class="val mono-space">
                 <expand-box :max-height='250'>
                   <div slot="content">

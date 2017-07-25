@@ -22,3 +22,4 @@ Bugs:
   ^ is that a default value?
 ✔ Duplicate bundles in TX i/o: this one shows the duplicate bundles (replays) - you can see there are 2 of each. (https://iota.codebuffet.co/#/addr/FPCQFOBL9OVTNTLNMOJUBAIWE9LYNJGKWDSKHOMUAGYQOLNYUPYWDAWYGTPMRL99MK9XWPWZOQAMFOHLZ is an extreme of this) @done(2017-07-19 00:09)
 ✔ @peterwilli in the example tx you gave, the QRs of `MOIT..` & `EFPS..` (the other output) render quite similar. not sure what your coloring rules are, but that may be confusing. @done(2017-07-20 17:16)
+  When transactions or addresses are inputted into the search field and enter is pressed before a search result is returned, the page loads an empty transaction vue. Suggest recalling the search function on an empty transaction vue if the /tx or /addr param is set 

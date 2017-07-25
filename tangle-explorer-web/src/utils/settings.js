@@ -4,6 +4,9 @@ const defaultSettings = {
 }
 
 export default {
+  resetToDefault() {
+    store.remove('settings')
+  },
   set(settings) {
     store.set('settings', settings)
   },

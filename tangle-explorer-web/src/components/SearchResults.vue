@@ -1,7 +1,10 @@
 <template lang="html">
   <div class='results' v-if="addrResults !== null || txResults !== null">
     <div class="result" @click="goTo('Transaction', result.hash)" v-for="result in txResults">
-      <div class="cut-text hash"><span class="result-cat">Hash: </span>{{ result.hash }}</div>
+      <div class="cut-text hash">
+      <ceri-icon name="fa-hashtag"></ceri-icon>
+      <span class="result-cat">Hash: </span>{{ result.hash }}
+      </div>
       <div class="cut-text address">
         <ceri-icon name="fa-user"></ceri-icon>
         <span class="result-cat">Address: </span> {{ result.address }}
@@ -24,7 +27,8 @@
 
     <div class="result" @click="goTo('Bundle', result.hash)" v-for="result in bundleResults">
       <div class="cut-text hash">
-        {{ result.hash }}
+        <ceri-icon name="fa-hashtag"></ceri-icon>
+        <span class="result-cat">Bundle: </span>{{ result.hash }}
       </div>
     </div>
   </div>

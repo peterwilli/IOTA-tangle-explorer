@@ -18,7 +18,7 @@
           <identi-qr :size='500' :contents="$getQRCode(tx.address)"></identi-qr>
         </div>
         <div class="addr mono-space">
-          <router-link :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link>
+          <router-link :title='tx.address' :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link>
         </div>
       </div>
       <div class="tx-info stretch mobile">
@@ -74,7 +74,7 @@
           </tr>
           <tr>
             <td>Address</td>
-            <td class="val mono-space"><router-link :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link></td>
+            <td class="val mono-space"><router-link :title='tx.address' :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link></td>
           </tr>
           <tr>
               <td>Value</td>
@@ -98,15 +98,15 @@
           </tr>
           <tr>
               <td>Trunk Transaction Hash</td>
-              <td class="val mono-space"><router-link :to="{ name: 'Transaction', params: { hash: tx.trunkTransaction }}">{{ tx.trunkTransaction }}</router-link></td>
+              <td class="val mono-space"><router-link :title='tx.trunkTransaction' :to="{ name: 'Transaction', params: { hash: tx.trunkTransaction }}">{{ tx.trunkTransaction }}</router-link></td>
          </tr>
           <tr>
               <td>Branch Transaction Hash</td>
-              <td class="val mono-space"><router-link :to="{ name: 'Transaction', params: { hash: tx.branchTransaction }}">{{ tx.branchTransaction }}</router-link></td>
+              <td class="val mono-space"><router-link :title='tx.branchTransaction' :to="{ name: 'Transaction', params: { hash: tx.branchTransaction }}">{{ tx.branchTransaction }}</router-link></td>
          </tr>
           <tr>
               <td>Bundle Hash</td>
-              <td class="val mono-space"><router-link :to="{ name: 'Bundle', params: { hash: tx.bundle }}">{{ tx.bundle }}</router-link></td>
+              <td class="val mono-space"><router-link :title='tx.bundle' :to="{ name: 'Bundle', params: { hash: tx.bundle }}">{{ tx.bundle }}</router-link></td>
           </tr>
           <tr>
               <td>Nonce</td>
@@ -219,10 +219,14 @@ export default {
     line-height 28px
 
   .arrow
-    float left
-    width 10%
+    position absolute
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width 5%
     text-align center
-    color: #1fb02e
+    color: #2C3E50
 
     .arrow-icon
       width 100%

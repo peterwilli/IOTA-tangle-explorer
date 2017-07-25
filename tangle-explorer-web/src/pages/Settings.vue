@@ -28,7 +28,7 @@ export default {
     reset() {
       var reset = confirm("Are you sure you want to reset to default settings?")
       if(reset) {
-        settings.resetToDefault()        
+        settings.resetToDefault()
         window.location.reload()
       }
     },
@@ -51,5 +51,9 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="stylus" scoped>
+@import "../styles/media-mixin.styl"
++mobile()
+  .wrap
+    table-layout auto!important
 </style>

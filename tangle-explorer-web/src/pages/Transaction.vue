@@ -285,7 +285,7 @@ export default {
       width 244px
 
     padding 10px
-    background rgb(222, 222, 222)
+    background #f9f9f9
     .left
       float left
       width 80%

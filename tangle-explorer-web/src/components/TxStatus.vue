@@ -25,7 +25,7 @@ export default {
           _this.txStatus = 'confirmed'
         }
         else {
-          _this.txStatus = 'failed'
+          _this.txStatus = 'pending'
         }
       })
     },
@@ -42,7 +42,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.status-failed {
+.status-pending {
   color rgb(182, 45, 45)
   font-weight bold
 }

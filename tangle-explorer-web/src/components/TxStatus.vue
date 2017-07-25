@@ -1,5 +1,5 @@
 <template lang="html">
-  <span v-if="txStatus" :class="'status-' + txStatus">{{ displayStatus(txStatus) }}</span>
+  <span :title="'This transaction is considered ' + displayStatus(txStatus).toLowerCase() + ' by the tangle'" v-if="txStatus" :class="'status-' + txStatus">{{ displayStatus(txStatus) }}</span>
   <span v-else class="status-loading">Checking...</span>
 </template>
 

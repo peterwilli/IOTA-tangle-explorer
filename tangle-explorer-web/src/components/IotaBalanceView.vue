@@ -1,5 +1,5 @@
 <template lang="html">
-  <span>{{ convertToUnits(value) }}</span>
+  <span :title=' listUnit(value)'>{{ convertToUnits(value) }}</span>
 </template>
 
 <script>
@@ -30,6 +30,19 @@ export default {
         return values[key]
       }
       return 'Pi'
+    },
+    listUnit(value)
+    {
+      var unit = this.pickUnit(value)
+      var values = {
+        'i' : 'Iota',
+        'Ki' : "Kilo Iota",
+        "Mi" : "Mega Iota",
+        "Gi" : "Giga Iota",
+        "Ti" : "Tera Iota",
+        "Pi" : "Peta Iota"
+      }
+      return `${iotaNode.iota.utils.convertUnits(value, 'i', unit)}` + " " + values[unit];
     },
     convertToUnits(value) {
       var unit = this.pickUnit(value)

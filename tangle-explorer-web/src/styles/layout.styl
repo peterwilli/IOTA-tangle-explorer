@@ -1,5 +1,6 @@
 @import "./media-mixin.styl"
 @import "./workarounds.styl"
+@import "./buttons.styl"
 
 .container
   width 100%
@@ -22,6 +23,19 @@ legend {
   color #595959
   width 100%
 }
+
+form
+  .input
+    border 1px solid #56636f
+    padding 10px
+    border-radius 5px
+    width 100%
+
+    -webkit-transition all .2s ease-in-out
+    -o-transition all .2s ease-in-out
+    transition all .2s ease-in-out
+    &:focus
+      box-shadow 0 3px 6px -1px rgba(0, 0, 0, 0.12), 0 10px 36px -4px rgba(77, 96, 232, 0.3)
 
 .page-loading
   text-align center

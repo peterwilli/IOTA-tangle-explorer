@@ -1,4 +1,5 @@
 const log = require('@/utils/log')
+const settings = require('@/utils/settings.js').default
 
 // The global object for node info etc.
 var obj = {
@@ -25,7 +26,7 @@ var obj = {
 
 // Create IOTA instance directly with provider
 var iota = new IOTA({
-    'provider': 'https://n1.iota.nu:443'
+    'provider': settings.get().nodeUrl
 });
 obj.iota = iota
 

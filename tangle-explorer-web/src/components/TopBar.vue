@@ -8,7 +8,9 @@
       </div>
       <div class='right'>
         <div class="bar-button">
-          <ceri-icon class="icon" name="fa-gear"></ceri-icon>
+          <router-link :to="{ name: 'Settings' }">
+            <ceri-icon class="icon" name="fa-gear"></ceri-icon>
+          </router-link>
         </div>
         <div class='search'>
           <search-field></search-field>

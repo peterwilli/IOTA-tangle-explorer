@@ -6,7 +6,7 @@
         <span class="result-cat">No transaction or address found</span>
       </div>
     </div>
-  
+
     <div class="result" @click="goTo('Transaction', result.hash)" v-for="result in txResults">
       <div class="cut-text hash">
       <ceri-icon name="fa-hashtag"></ceri-icon>
@@ -71,25 +71,3 @@ export default {
   }
 }
 </script>
-
-<style lang="stylus" scoped>
-.results
-  position absolute
-  width 80%
-  right 0
-  top 37px
-  background #fff
-  border-left 1px solid #121728
-  border-right 1px solid #121728
-  border-bottom 1px solid #121728
-
-  .result:hover
-    background #eee
-
-  .result
-    padding 5px
-    padding-left 10px
-    cursor pointer
-    .result-cat
-      font-weight bold
-</style>

@@ -1,12 +1,15 @@
 <template lang="html">
-  <div class="container">
+  <div class="container search-page" v-if="!searching">
     <legend>
       Results
     </legend>
-    <search-results v-if="addrResults !== null && txResults !== null && bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
+    <search-results v-if="addrResults !== null || txResults !== null || bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
     <div class="absence error" v-else>
       No transaction or address found :(
     </div>
+  </div>
+  <div v-else class="container page-loading">
+    <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
 </template>
 
@@ -15,13 +18,13 @@ require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 const iotaSearch = require('@/utils/iota-search-engine.js')
 
-import IotaBalanceView from '@/components/IotaBalanceView.vue'
-import RelativeTime from '@/components/RelativeTime.vue'
 import SearchResults from '@/components/SearchResults.vue'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 export default {
   components: {
-    SearchResults
+    SearchResults,
+    PulseLoader
   },
   mounted() {
     var val = this.$route.params.query
@@ -32,10 +35,13 @@ export default {
       _this.addrResults = addresses
     }, (bundles) => {
       _this.bundleResults = bundles
+    }, () => {
+      _this.searching = false
     })
   },
   data() {
     return {
+      searching: true,
       txResults: null,
       addrResults: null,
       bundleResults: null
@@ -44,7 +50,20 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
-.container
-  position relative
+<style lang="stylus">
+.search-page
+  .results
+    right 0
+    top 37px
+    background #fff
+
+    .result:hover
+      background #eee
+
+    .result
+      padding 5px
+      padding-left 10px
+      cursor pointer
+      .result-cat
+        font-weight bold
 </style>

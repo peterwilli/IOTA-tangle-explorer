@@ -82,6 +82,29 @@ export default {
 }
 </script>
 
+<style lang="stylus">
+.search-field
+  .results
+    position absolute
+    width 80%
+    right 0
+    top 37px
+    background #fff
+    border-left 1px solid #121728
+    border-right 1px solid #121728
+    border-bottom 1px solid #121728
+
+    .result:hover
+      background #eee
+
+    .result
+      padding 5px
+      padding-left 10px
+      cursor pointer
+      .result-cat
+        font-weight bold
+</style>
+
 <style lang="stylus" scoped>
 .search
   width 100%

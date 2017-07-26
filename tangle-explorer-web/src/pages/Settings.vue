@@ -9,13 +9,13 @@
         <table class="wrap striped">
             <tbody>
                 <tr>
-                    <td>Node URL</td>
+                    <td title="Full node IP or URL (eg. http://examplenode.com:14265">Node URL</td>
                     <td><input class="input" type="url" v-model="settings.nodeUrl" required /></td>
                 </tr>
             </tbody>
         </table>
-        <input type="submit" class="primary btn" value="Apply" />
-        <input type="button" @click="reset()" class="destructive btn" value="Reset to default settings" />
+        <input title="Save these settings" type="submit" class="primary btn" value="Apply" />
+        <input title="Reset all settings to the default values" type="button" @click="reset()" class="destructive btn" value="Reset" />
       </form>
     </div>
   </div>

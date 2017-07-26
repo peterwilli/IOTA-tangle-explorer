@@ -44,11 +44,13 @@ module.exports = {
           icons: [
             "fa-user",
             "fa-clock-o",
-            "fa-arrow-circle-o-right",
+            "fa-arrow-right",
+            "fa-search",
             "fa-expand",
             "fa-compress",
             "fa-heart",
-            "fa-gear"
+            "fa-gear",
+            "fa-hashtag"
           ]
         }
       },

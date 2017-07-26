@@ -9,7 +9,7 @@
       <div class='right'>
         <div class="bar-button">
           <router-link :to="{ name: 'Settings' }">
-            <ceri-icon class="icon" name="fa-gear"></ceri-icon>
+            <ceri-icon scale=0.8 class="icon" name="fa-gear"></ceri-icon>
           </router-link>
         </div>
         <div class='search'>
@@ -38,8 +38,17 @@ export default {
   margin-left 5px
 
 .search
-  margin-top 10px
-  overflow: hidden
+  position relative
+  margin-top 20px
+  min-height 50px
+  min-height 117px
+
+
+.search-field
+  position absolute
+  width 100%
+  right 40px
+  min-height 117px
 
 .right
   overflow: hidden
@@ -67,4 +76,5 @@ export default {
   .icon
     color #fff
     font-size 40px
+    margin-left 10px
 </style>

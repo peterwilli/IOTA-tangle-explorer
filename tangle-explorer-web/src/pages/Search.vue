@@ -3,7 +3,10 @@
     <legend>
       Results
     </legend>
-    <search-results v-if="addrResults !== null || txResults !== null || bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
+    <search-results v-if="addrResults !== null && txResults !== null && bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
+    <div class="absence error" v-else>
+      No transaction or address found :(
+    </div>
   </div>
 </template>
 

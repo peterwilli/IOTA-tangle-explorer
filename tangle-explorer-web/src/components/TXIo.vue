@@ -16,19 +16,19 @@
       <div class="inputs">
         <div class="input" v-for="tx in txIO.inputs">
           <div class="io-link">
-            <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
+            <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :title='tx.address' :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
           </div>
           <span class="iota-val"><iota-balance-view :value='tx.value'></iota-balance-view></span>
         </div>
       </div>
       <div ref="arrow" class="arrow">
-        <ceri-icon class="arrow-icon" name="fa-arrow-circle-o-right"></ceri-icon>
+        <ceri-icon class="arrow-icon" name="fa-arrow-right"></ceri-icon>
       </div>
       <div class="outputs">
         <div class="output" v-for="tx in txIO.outputs">
           <div class="hash">
             <div class="io-link">
-              <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
+              <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :title='tx.address' :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
             </div>
             <span class="iota-val"><iota-balance-view :value='tx.value'></iota-balance-view></span>
           </div>
@@ -82,10 +82,14 @@ export default {
     line-height 28px
 
   .arrow
-    float left
-    width 10%
+    position absolute
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width 5%
     text-align center
-    color: #1fb02e
+    color: #2C3E50
 
     .arrow-icon
       width 100%

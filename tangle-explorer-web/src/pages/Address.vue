@@ -179,7 +179,7 @@ legend {
       width 244px
 
     padding 10px
-    background rgb(222, 222, 222)
+    background-color #f9f9f9
     .left
       float left
       width 80%

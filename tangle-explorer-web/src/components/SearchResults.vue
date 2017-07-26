@@ -1,5 +1,12 @@
 <template lang="html">
   <div class='results' v-if="addrResults !== null || txResults !== null">
+    <div class="result" v-if="txResults.length == 0 && addrResults == null">
+      <div class="cut-text hash">
+        <ceri-icon name="fa-search"></ceri-icon>
+        <span class="result-cat">No transaction or address found</span>
+      </div>
+    </div>
+  
     <div class="result" @click="goTo('Transaction', result.hash)" v-for="result in txResults">
       <div class="cut-text hash">
       <ceri-icon name="fa-hashtag"></ceri-icon>
@@ -32,6 +39,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -46,7 +54,7 @@ export default {
   props: ['addrResults', 'bundleResults', 'txResults', 'click'],
   components: {
     IotaBalanceView,
-    RelativeTime
+    RelativeTime,
   },
   methods: {
     goTo(name, hash) {
@@ -67,8 +75,9 @@ export default {
 <style lang="stylus" scoped>
 .results
   position absolute
-  left 0px
-  right 0px
+  width 80%
+  right 0
+  top 37px
   background #fff
   border-left 1px solid #121728
   border-right 1px solid #121728

@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class='search'>
-    <input class="search-input" v-on:keyup.enter="pickFirstResult()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, addresses" />
+  <div class='search-field'>
+    <input class="search-input" v-on:keyup.enter="pickFirstResult()" v-on:keyup.esc="emptyResults()" @input="update" v-model="searchText" type='text' placeholder="Search transactions, addresses" />
     <search-results :click='close' v-if="addrResults !== null || txResults !== null || bundleResults !== null" :bundleResults='bundleResults' :txResults='txResults' :addrResults='addrResults'></search-results>
   </div>
 </template>

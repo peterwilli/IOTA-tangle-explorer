@@ -45,6 +45,7 @@ module.exports = {
             "fa-user",
             "fa-clock-o",
             "fa-arrow-right",
+            "fa-search",
             "fa-expand",
             "fa-compress",
             "fa-heart",

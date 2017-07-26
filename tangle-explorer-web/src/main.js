@@ -7,6 +7,9 @@ import router from './router';
 const IOTAPlugin = require('@/utils/IOTAPlugin').default
 Vue.use(IOTAPlugin)
 
+// Directives (global)
+require('@/directives/click-outside.js')
+
 // Styles (global)
 require('@/styles/layout.styl')
 require("document-register-element")

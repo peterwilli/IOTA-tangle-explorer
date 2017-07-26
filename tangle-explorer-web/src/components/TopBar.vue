@@ -33,25 +33,25 @@ export default {
 <style lang="stylus" scoped>
 @import "../styles/media-mixin.styl"
 
+.container
+  position relative
+
 .logo
   margin-top 5px
   margin-left 5px
 
 .search
-  position relative
   margin-top 20px
-  min-height 50px
-  min-height 117px
-
 
 .search-field
   position absolute
   width 100%
   right 40px
-  min-height 117px
 
 .right
-  overflow: hidden
+  position absolute
+  left 100px
+  right 0px
 
 .left
   float left

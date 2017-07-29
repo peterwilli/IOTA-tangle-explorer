@@ -10,7 +10,7 @@
       <span class="txLabel" id="valueLabel">Value: {{this.txValue}}</span>          
       <span class="txLabel" id="tagLabel">Tag: {{this.txTag}}</span>    
       <div class="toolbar">
-        <div v-if="network !== null" class="button inceaseButton" @click="increaseDepth()">
+        <div :title='"Expand the graph to include transactions which directly reference the current transactions"' v-if="network !== null && this.networkLoading === false" class="button inceaseButton" @click="increaseDepth()">
           <ceri-icon class="increaseIcon" name="fa-plus-square"></ceri-icon><span>Increase Depth</span>
         </div>
         <div class='button' v-else>
@@ -177,6 +177,7 @@ export default {
       return new vis.DataSet(arr)
     },
     increaseDepth() {
+      this.networkLoading = true;      
       var arr = []
       for (var tx of this.txsToRender) {
         arr.push(tx.branchTransaction)
@@ -200,6 +201,7 @@ export default {
         _this.txsToRender = _.uniqBy(_this.txsToRender, (tx) => {
           return tx.hash
         })
+        _this.networkLoading = false;
         _this.update()
       })
     },
@@ -223,9 +225,9 @@ export default {
         this.txsToRender = this.txs.slice(0)
       }
       
-              var t = this.txsToRender.find(function(el){return (el.hash == this.viewingHash) ? el : null},this) 
-        this.txTag = (t) ? t.tag : "''"
-        this.txValue = (t) ? t.value : "0"
+      var t = this.txsToRender.find(function(el){return (el.hash == this.viewingHash) ? el : null},this) 
+      this.txTag = (t) ? t.tag : "''"
+      this.txValue = (t) ? t.value : "0"
       var container = this.$refs.graph
       var nodes = this.txsToNodes(this.txsToRender)
       var edges = this.txsToEdges(this.txsToRender)
@@ -300,7 +302,8 @@ export default {
       edgeCount: null,
       expanded: false,
       oldOffset: null,
-      shouldShowPusher: false
+      shouldShowPusher: false,
+      networkLoading: false
     }
   },
   mounted() {

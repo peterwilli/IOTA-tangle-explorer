@@ -5,7 +5,7 @@
         Settings
       </legend>
 
-      <form @submit.prevent='apply()'>
+      <form @submit.prevent='apply'>
         <table class="wrap striped">
             <tbody>
                 <tr>
@@ -15,7 +15,7 @@
             </tbody>
         </table>
         <input title="Save these settings" type="submit" class="primary btn" value="Apply" v-toast='"Settings Saved"' />
-        <input title="Reset all settings to the default values" type="button" @click="reset()" class="destructive btn" value="Reset" v-toast='"Settings Reset"'  />
+        <input title="Reset all settings to the default values" type="button" @click="reset" class="destructive btn" value="Reset" v-toast='"Settings Reset"'  />
       </form>
     </div>
   </div>
@@ -25,14 +25,17 @@
 const settings = require('@/utils/settings.js').default
 export default {
   methods: {
-    reset() {
+    reset(event) {
       var reset = confirm("Are you sure you want to reset to default settings?")
       if(reset) {
         settings.resetToDefault()
         window.location.reload()
       }
+      else {
+        event.stopPropagation()
+      }
     },
-    apply() {
+    apply(event) {
       var oldSettings = settings.get()
       settings.set(this.settings)
       if(this.settings.nodeUrl !== oldSettings.nodeUrl) {

@@ -10,8 +10,6 @@ This is a complete recode of the Tangle Explorer, with the following differences
 - Realtime, automatic updates
 - Written in VueJS (React but much simpler)
 
-Currently being worked on by me (peterwilli) as a weekend challenge and ongoing efforts to join the IOTA community.
-
 ## How to run
 
 Commands are `displayed like this!`

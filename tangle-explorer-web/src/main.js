@@ -3,12 +3,15 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import Toast from 'vue-easy-toast'
 
 const IOTAPlugin = require('@/utils/IOTAPlugin').default
 Vue.use(IOTAPlugin)
+Vue.use(Toast)
 
 // Directives (global)
 require('@/directives/click-outside.js')
+require('@/directives/toast.js')
 
 // Styles (global)
 require('@/styles/layout.styl')

@@ -14,8 +14,8 @@
                 </tr>
             </tbody>
         </table>
-        <input title="Save these settings" type="submit" class="primary btn" value="Apply" />
-        <input title="Reset all settings to the default values" type="button" @click="reset()" class="destructive btn" value="Reset" />
+        <input title="Save these settings" type="submit" class="primary btn" value="Apply" v-toast='"Settings Saved"' />
+        <input title="Reset all settings to the default values" type="button" @click="reset()" class="destructive btn" value="Reset" v-toast='"Settings Reset"'  />
       </form>
     </div>
   </div>

@@ -59,11 +59,6 @@
       No Tx I/O found :(
     </div>
     <legend>
-      Position in Tangle
-    </legend>
-    <tangle-graph :txs='[tx]' :viewingHash='tx.hash'></tangle-graph>
-
-    <legend>
       Transaction Details
     </legend>
     <table class="striped">
@@ -124,7 +119,12 @@
           </tr>
       </tbody>
     </table>
+    <legend>
+      Position in Tangle
+    </legend>
+    <tangle-graph :txs='[tx]' :viewingHash='tx.hash' :viewingTrunkHash='tx.trunkTransaction' :viewingBranchHash='tx.branchTransaction'></tangle-graph>
   </div>
+  
   <div class="page-loading" v-else>
     <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
@@ -220,7 +220,7 @@ export default {
 
   .arrow
     position absolute
-    left: 0; 
+    left: 0;
     right: 0; 
     margin-left: auto; 
     margin-right: auto; 

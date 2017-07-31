@@ -44,7 +44,9 @@ export default {
       iotaNode.iota.api.findTransactionObjects({
         bundles: [this.$route.params.hash]
       }, function(e, r) {
-        _this.txIOs = txToIO(r)
+        (async() => {
+          _this.txIOs = await txToIO(r)
+        })()
       })
     }
   },

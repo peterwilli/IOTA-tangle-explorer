@@ -124,7 +124,7 @@
     </legend>
     <tangle-graph :txs='[tx]' :viewingHash='tx.hash' :viewingTrunkHash='tx.trunkTransaction' :viewingBranchHash='tx.branchTransaction'></tangle-graph>
   </div>
-  
+
   <div class="page-loading" v-else>
     <pulse-loader :color="'#000'" size='30px'></pulse-loader>
   </div>
@@ -159,8 +159,12 @@ export default {
   },
   methods: {
     getIOFromTX() {
+      var _this = this
       iotaNode.iota.api.findTransactionObjects({ bundles: [this.tx.bundle] }, (e, r) => {
-        this.txIO = txToIO(r)[0]
+        (async() => {
+          var ios = await txToIO(r)
+          _this.txIO = ios[0]
+        })()
       })
     },
     getQRAddress() {
@@ -221,9 +225,9 @@ export default {
   .arrow
     position absolute
     left: 0;
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     width 5%
     text-align center
     color: #2C3E50
@@ -265,7 +269,7 @@ export default {
       width 100%
     .addr
       font-size 15px
-      letter-spacing 1px     
+      letter-spacing 1px
       word-break break-all
       margin-top 4px
 

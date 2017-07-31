@@ -15,7 +15,7 @@ Bugs:
 ☐ doesn't deal well with bundles which have been reattached multiple times. When checking each receiving address individually, every one of them has a confirmed transaction and the correct balance. (https://iota.codebuffet.co/#/tx/LNWZGIMDPWCUDYUSYMXHWMXNW9IXGNUHJPXJZYGOBJVHPUADTLOXDOCIZNDBMD9PLOHUSJTAWEAQ99999)
 ☐ When transactions or addresses are inputted into the search field and enter is pressed before a search result is returned, the page loads an empty transaction vue. Suggest recalling the search function on an empty transaction vue if the /tx or /addr param is set
 ☐ regular bundle view for bundle page (maybe tx too?)
-☐ https://iota.codebuffet.co/#/addr/XWGYJRIWOLBUOSECOFNZXPE9PIMZXNETYLHKTHHQXSWMBZMXCJFKVZJVQAMJPYQPYKZGOVCSFPUOBJDQQ shows a tx in i/o without the linked adress
+✔ https://iota.codebuffet.co/#/addr/XWGYJRIWOLBUOSECOFNZXPE9PIMZXNETYLHKTHHQXSWMBZMXCJFKVZJVQAMJPYQPYKZGOVCSFPUOBJDQQ shows a tx in i/o without the linked adress @done(2017-07-31 19:12)
 ✔ btw, I think the pickUnit (at least the version posted here) will show negative values w/ different denominations than intended (missing abs?) `-0.053219001125 Ti -> -53.29.. Gi ?` (https://iota.codebuffet.co/#/addr/IZ9HIGVBPKBVJEPNHEFCDKCQGPJOILGMATCNKUOZYOUBMRWRMPWTGASMHANZQWPWPKPROMKOZRIFNURHL) @done(2017-07-19 22:41)
 ✔ I don't see a notion of pending/confirmed tx, am I missing it? (getLatestStates) @done(2017-07-19 00:31)
 ✔ Date format issue on /tx page @done(2017-07-18 21:38)

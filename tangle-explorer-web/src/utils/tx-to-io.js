@@ -11,7 +11,7 @@ export default (r) => {
       res[tx.bundle] = { inputs: [], outputs: [] }
     }
     // Cache is being used for making sure no duplicated transactions from re-attached bundles show up in the i/o gui.
-    var cacheKey = `${tx.bundle}${tx.value}${tx.tag}`
+    var cacheKey = `${tx.bundle}${tx.value}${tx.tag}${tx.address}`
     if(txCache[cacheKey] === undefined) {
       txCache[cacheKey] = null
       var isInput = tx.value < 0

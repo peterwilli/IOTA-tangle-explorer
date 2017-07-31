@@ -42,7 +42,6 @@
 <script>
 require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
-const txToIO = require('@/utils/tx-to-io.js').default
 
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import IdentiQr from '@/components/IdentiQR.vue'
@@ -83,10 +82,10 @@ export default {
 
   .arrow
     position absolute
-    left: 0; 
-    right: 0; 
-    margin-left: auto; 
-    margin-right: auto; 
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
     width 5%
     text-align center
     color: #2C3E50

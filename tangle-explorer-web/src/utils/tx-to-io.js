@@ -1,7 +1,17 @@
 const txSort = require('@/utils/tx-sort-timestamp.js')
 const _ = require('lodash')
+require('@/lib/iota')
+const iotaNode = require("@/utils/iota-node")
 
-export default (r) => {
+var txIsConfirmed = async function(txHash) {
+  var res = await new Promise()
+  iotaNode.iota.api.getLatestInclusion([txHash], function(e, r) {
+    res.resolve(!!r[0])
+  })
+  return res
+}
+
+export default async (r) => {
   r.sort(txSort)
   var res = {}
   var txCache = {}

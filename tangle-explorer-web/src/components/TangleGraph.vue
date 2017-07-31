@@ -1,14 +1,14 @@
 <template lang="html">
   <div>
-  
+
     <div class="pusher" v-if="shouldShowPusher">
 
     </div>
     <div class="graph-container" ref="container">
-      <span class="infoLabel" id="transactionLabel">Transactions: {{this.nodeCount}}</span>    
-      <span class="infoLabel" id="edgeLabel">Connections: {{this.edgeCount}}</span>  
-      <span class="txLabel" id="valueLabel">Value: {{this.txValue}}</span>          
-      <span class="txLabel" id="tagLabel">Tag: {{this.txTag}}</span>    
+      <span class="infoLabel" id="transactionLabel">Transactions: {{this.nodeCount}}</span>
+      <span class="infoLabel" id="edgeLabel">Connections: {{this.edgeCount}}</span>
+      <span class="txLabel" id="valueLabel">Value: {{this.txValue}}</span>
+      <span class="txLabel" id="tagLabel">Tag: {{this.txTag}}</span>
       <div class="toolbar">
         <div :title='"Expand the graph to include transactions which directly reference the current transactions"' v-if="network !== null && this.networkLoading === false" class="button inceaseButton" @click="increaseDepth()">
           <ceri-icon class="increaseIcon" name="fa-plus-square"></ceri-icon><span>Increase Depth</span>
@@ -58,7 +58,7 @@ export default {
       if (hash === this.viewingHash) {
         return '#EBB366'
       } else if(this.isDirect(hash)) {
-        return '#477397' 
+        return '#477397'
       }
       else {
         return '#222'
@@ -104,7 +104,7 @@ export default {
           this.shouldShowPusher = false
           $container.css({
             position: 'relative',
-            height: '250px',
+            height: '450px',
             left: 'auto',
             right: 'auto',
             top: 'auto',
@@ -115,7 +115,7 @@ export default {
     },
     txsToNodes(txs) {
       var arr = []
-      for (var tx of txs) {         
+      for (var tx of txs) {
         arr.push({
           font: {
             multi: "md",
@@ -138,7 +138,7 @@ export default {
           id: tx.branchTransaction,
           color: {background:this.getNodeColor(tx.branchTransaction), border: "#cccccc"},
           borderWidth: 1,
-          shadow: {enabled:true, color: '#1a1a1a', x: 2, y: 2, size: 2},          
+          shadow: {enabled:true, color: '#1a1a1a', x: 2, y: 2, size: 2},
           label: this.processLabel(tx.branchTransaction),
         })
 
@@ -151,7 +151,7 @@ export default {
           id: tx.trunkTransaction,
           color: {background:this.getNodeColor(tx.trunkTransaction), border: "#cccccc"},
           borderWidth: 1,
-          shadow: {enabled:true, color: '#1a1a1a', x: 2, y: 2, size: 2},          
+          shadow: {enabled:true, color: '#1a1a1a', x: 2, y: 2, size: 2},
           label: this.processLabel(tx.trunkTransaction),
         })
       }
@@ -177,7 +177,7 @@ export default {
       return new vis.DataSet(arr)
     },
     increaseDepth() {
-      this.networkLoading = true;      
+      this.networkLoading = true;
       var arr = []
       for (var tx of this.txsToRender) {
         arr.push(tx.branchTransaction)
@@ -219,13 +219,13 @@ export default {
       }
     },
     update() {
-      
+
       this.destroyNetwork()
       if(this.txsToRender === null || this.txsToRender.length === 0) {
         this.txsToRender = this.txs.slice(0)
       }
-      
-      var t = this.txsToRender.find(function(el){return (el.hash == this.viewingHash) ? el : null},this) 
+
+      var t = this.txsToRender.find(function(el){return (el.hash == this.viewingHash) ? el : null},this)
       this.txTag = (t) ? t.tag : "''"
       this.txValue = (t) ? t.value : "0"
       var container = this.$refs.graph
@@ -331,13 +331,13 @@ export default {
     right 5px
     font-size 12px
     color: #ccc
-    text-align right        
+    text-align right
 
   #tagLabel
     bottom 5px
 
   #valueLabel
-    position absolute  
+    position absolute
     bottom 20px
 
   .increaseIcon
@@ -345,12 +345,12 @@ export default {
 
   #edgeLabel
     bottom 20px
-  
+
   #transactionLabel
     bottom 5px
 
   .pusher
-    height 250px
+    height 450px
 
   .toolbar
     left 0
@@ -361,7 +361,7 @@ export default {
     z-index: 1
     .right
       float right
-    
+
     .button
       color #fff
       cursor pointer
@@ -372,7 +372,7 @@ export default {
 
       &:hover
         background rgba(255, 255, 255, 0.2)
-    
+
   .graph
     background #222222
     height 100%

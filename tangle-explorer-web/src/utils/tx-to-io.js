@@ -13,11 +13,16 @@ var txIsConfirmed = async function(txHash) {
 
 var txsAreConfirmed = async function(txHashes) {
   var ret = {}
-  var fns = []
-  for(var hash of txHashes) {
-    fns.push(txIsConfirmed(hash))
+  var getConfirms = async (txHashes) => {
+    return new Promise(function(resolve, reject) {
+      iotaNode.iota.api.getLatestInclusion(txHashes, function(e, r) {
+        resolve(_.map(r, (ri) => {
+          return !!ri
+        }))
+      })
+    })
   }
-  var responses = await Promise.all(fns)
+  var responses = await getConfirms(txHashes)
   var i = 0
   for(var hash of txHashes) {
     ret[hash] = responses[i]

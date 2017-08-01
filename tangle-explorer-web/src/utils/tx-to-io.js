@@ -3,14 +3,6 @@ const _ = require('lodash')
 require('@/lib/iota')
 const iotaNode = require("@/utils/iota-node")
 
-var txIsConfirmed = async function(txHash) {
-  return new Promise(function(resolve, reject) {
-    iotaNode.iota.api.getLatestInclusion([txHash], function(e, r) {
-      resolve(!!r[0])
-    })
-  })
-}
-
 var txsAreConfirmed = async function(txHashes) {
   var ret = {}
   var getConfirms = async (txHashes) => {

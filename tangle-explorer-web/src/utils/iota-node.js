@@ -1,5 +1,6 @@
 const log = require('@/utils/log')
 const settings = require('@/utils/settings.js').default
+const IOTAHelper = require('./IOTAHelper').default
 
 // The global object for node info etc.
 var obj = {
@@ -57,4 +58,7 @@ obj.subscribe = (event) => {
     refreshNodeInfo()
   }
 }
+
+obj.helper = new IOTAHelper(iota)
+
 module.exports = obj

@@ -9,7 +9,7 @@
       <div class='right'>
         <div class="bar-button">
           <router-link :to="{ name: 'Settings' }">
-            <ceri-icon scale=0.8 class="icon" name="fa-gear"></ceri-icon>
+            <ceri-icon size='35' hcenter='true' class="icon" name="fa-gear"></ceri-icon>
           </router-link>
         </div>
         <div class='search'>
@@ -69,12 +69,14 @@ export default {
   z-index: 2
 
   .bar-button
+    a
+      display block
     float right
     margin-left 5px
     margin-top 20px
 
   .icon
     color #fff
-    font-size 40px
     margin-left 10px
+    height 27px
 </style>

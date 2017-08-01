@@ -11,9 +11,30 @@ var txIsConfirmed = async function(txHash) {
   })
 }
 
+var txsAreConfirmed = async function(txHashes) {
+  var ret = {}
+  var fns = []
+  for(var hash of txHashes) {
+    fns.push(txIsConfirmed(hash))
+  }
+  var responses = await Promise.all(fns)
+  var i = 0
+  for(var hash of txHashes) {
+    ret[hash] = responses[i]
+    i++
+  }
+  return ret
+}
+
 export default async (r) => {
   var res = {}
   var txCache = {}
+  var txHashes = []
+  for(var i = 0; i < r.length; i++) {
+    var tx = r[i]
+    txHashes.push(tx.hash)
+  }
+  var confirmedCache = await txsAreConfirmed(txHashes)
   for(var i = 0; i < r.length; i++) {
     var tx = r[i]
     if(!res[tx.bundle]) {
@@ -22,7 +43,7 @@ export default async (r) => {
     // Cache is being used for making sure no duplicated transactions from re-attached bundles show up in the i/o gui.
     var cacheKey = `${tx.bundle}${tx.value}${tx.tag}${tx.address}`
     if(txCache[cacheKey] === undefined) {
-      var isConfirmed = await txIsConfirmed(tx.hash)
+      var isConfirmed = confirmedCache[tx.hash]
       if(isConfirmed) {
         txCache[cacheKey] = null
         var isInput = tx.value < 0

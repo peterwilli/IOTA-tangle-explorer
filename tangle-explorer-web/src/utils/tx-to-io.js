@@ -5,16 +5,7 @@ const iotaNode = require("@/utils/iota-node")
 
 var txsAreConfirmed = async function(txHashes) {
   var ret = {}
-  var getConfirms = async (txHashes) => {
-    return new Promise(function(resolve, reject) {
-      iotaNode.iota.api.getLatestInclusion(txHashes, function(e, r) {
-        resolve(_.map(r, (ri) => {
-          return !!ri
-        }))
-      })
-    })
-  }
-  var responses = await getConfirms(txHashes)
+  var responses = await iotaNode.helper.getLatestInclusion(txHashes)
   var i = 0
   for(var hash of txHashes) {
     ret[hash] = responses[i]

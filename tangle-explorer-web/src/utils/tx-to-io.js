@@ -62,7 +62,7 @@ export default async (r) => {
     return (txs.inputs.length + txs.outputs.length) > 0
   })
   res.sort((a, b) => {
-    return a.inputs[0].timestamp < b.inputs[0].timestamp
+    return b.inputs[0].timestamp - a.inputs[0].timestamp
   })
   return res
 }

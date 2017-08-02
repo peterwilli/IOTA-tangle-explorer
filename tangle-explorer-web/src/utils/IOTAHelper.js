@@ -40,7 +40,7 @@ export default class IOTAHelper {
         i = 0
         for(var hash of toFetchFromNode) {
           var v = keepSort[hash]
-          res[v] = toFetchFromNode[i]
+          res[v] = resultsFromNode[i]
           _this.cache.set(`GLI-${hash}`, res[v], res[v] ? 60000 : 5000)
           i++
         }

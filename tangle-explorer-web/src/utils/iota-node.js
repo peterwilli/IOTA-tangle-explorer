@@ -60,5 +60,4 @@ obj.subscribe = (event) => {
 }
 
 obj.helper = new IOTAHelper(iota)
-
 module.exports = obj

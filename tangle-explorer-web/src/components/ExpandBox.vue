@@ -60,6 +60,7 @@ export default {
   overflow hidden
   position relative
   transition max-height 0.5s ease
+  padding-bottom 5px
 
 .expand-button:hover
   background rgba(0, 0, 0, 0.2)

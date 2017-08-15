@@ -1,6 +1,6 @@
 # IOTA Tangle Explorer
 
-[![Build Status](https://travis-ci.org/peterwilli/IOTA-tangle-explorer.svg?branch=master)](https://travis-ci.org/peterwilli/IOTA-tangle-explorer) | [Donate to developer](https://iota.codebuffet.co/#/addr/GKMSVVVOAHTZSBTYALJVNHTNBQRECLRRDVMUKCXQZUTOOIDT9DTQLJHMPCYOJZIJR9DABMPOUODEUMJWOOVHMKD9NR) | [Live demo](https://iota.codebuffet.co)
+[![Build Status](https://travis-ci.org/peterwilli/IOTA-tangle-explorer.svg?branch=master)](https://travis-ci.org/peterwilli/IOTA-tangle-explorer) | [Donate to developer](https://iota.codebuffet.co/#/addr/DSQXMGTAEPOKLVJVQPAXFEQYXECCMOQSRMYNRF9GOSKKPWPSHKETQFZXSIGSPGTCBVMNUVWZNDJOVJAIDLI9JPHZCB) | [Live demo](https://iota.codebuffet.co)
 
 ## Introduction
 

@@ -29,7 +29,14 @@
       <div class="clearfix"></div>
     </div>
     <legend>
-      Recent Transactions
+    <div v-if="txIOs">
+      <div v-if="txIOs.length > 1 || txIOs.length == 0">
+        <span class="bundle-count-box">{{txIOs.length}}</span> Transaction Bundles
+      </div>
+      <div v-else>
+        <span class="bundle-count-box">{{txIOs.length}}</span> Transaction Bundle
+      </div>
+    </div>
     </legend>
     <div class="tx-io" v-if="txIOs">
       <div class="tx-item" v-for="txIO in txIOs" v-if="txIO.inputs.length > 0">
@@ -46,75 +53,75 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
-const txToIO = require('@/utils/tx-to-io.js').default
-const _ = require('lodash')
-
-import TxIo from '@/components/TXIo.vue'
-import IdentiQr from '@/components/IdentiQR.vue'
-import ExpandBox from '@/components/ExpandBox.vue'
-import RelativeTime from '@/components/RelativeTime.vue'
-import ClickToSelect from '@/components/ClickToSelect.vue'
-import IotaBalanceView from '@/components/IotaBalanceView.vue'
-import TxStatus from '@/components/TxStatus.vue'
-import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
-
-export default {
-  components: {
-    IdentiQr,
-    ExpandBox,
-    TxIo,
-    RelativeTime,
-    ClickToSelect,
-    TxStatus,
-    IotaBalanceView,
-    PulseLoader
-  },
-  methods: {
-    initAddr() {
-      var _this = this
-      iotaNode.iota.api.getBalances([this.$route.params.hash], 20, function(e, r) {
-        _this.addr.balances = _.map(r.balances, (balance) => {
-          return parseInt(balance)
+  require('@/lib/iota')
+  const iotaNode = require("@/utils/iota-node")
+  const txToIO = require('@/utils/tx-to-io.js').default
+  const _ = require('lodash')
+  
+  import TxIo from '@/components/TXIo.vue'
+  import IdentiQr from '@/components/IdentiQR.vue'
+  import ExpandBox from '@/components/ExpandBox.vue'
+  import RelativeTime from '@/components/RelativeTime.vue'
+  import ClickToSelect from '@/components/ClickToSelect.vue'
+  import IotaBalanceView from '@/components/IotaBalanceView.vue'
+  import TxStatus from '@/components/TxStatus.vue'
+  import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+  
+  export default {
+    components: {
+      IdentiQr,
+      ExpandBox,
+      TxIo,
+      RelativeTime,
+      ClickToSelect,
+      TxStatus,
+      IotaBalanceView,
+      PulseLoader
+    },
+    methods: {
+      initAddr() {
+        var _this = this
+        iotaNode.iota.api.getBalances([this.$route.params.hash], 20, function(e, r) {
+          _this.addr.balances = _.map(r.balances, (balance) => {
+            return parseInt(balance)
+          })
         })
-      })
-      iotaNode.iota.api.findTransactionObjects({
-        addresses: [this.$route.params.hash]
-      }, function(e, r) {
-        _this.addr.transactions = r
-        var bundles = _.uniq(_.map(r, (tx) => {
-          return tx.bundle
-        }))
         iotaNode.iota.api.findTransactionObjects({
-          bundles
+          addresses: [this.$route.params.hash]
         }, function(e, r) {
-          (async() => {
-            _this.txIOs = await txToIO(r)
-          })()
+          _this.addr.transactions = r
+          var bundles = _.uniq(_.map(r, (tx) => {
+            return tx.bundle
+          }))
+          iotaNode.iota.api.findTransactionObjects({
+            bundles
+          }, function(e, r) {
+            (async() => {
+              _this.txIOs = await txToIO(r)
+            })()
+          })
         })
-      })
-    }
-  },
-  mounted() {
-    this.initAddr()
-  },
-  watch: {
-    '$route.params.hash': function() {
+      }
+    },
+    mounted() {
       this.initAddr()
-    }
-  },
-  data() {
-    return {
-      addr: {
-        balances: null,
-        transactions: null
-      },
-      txIOs: null,
-      hash: this.$route.params.hash
+    },
+    watch: {
+      '$route.params.hash': function() {
+        this.initAddr()
+      }
+    },
+    data() {
+      return {
+        addr: {
+          balances: null,
+          transactions: null
+        },
+        txIOs: null,
+        hash: this.$route.params.hash
+      }
     }
   }
-}
 </script>
 
 <style lang="stylus" scoped>
@@ -122,7 +129,14 @@ export default {
 
 .tx-item
   padding 5px
+  margin-top 10px
+  margin-bottom 10px
+  border 1px solid transparent
   &:nth-child(even){background-color: #f2f2f2}
+
+.tx-item:hover{
+  border 1px solid #bed3e8
+}
 
 legend {
   border-bottom 1px solid #595959
@@ -184,7 +198,7 @@ legend {
       width 244px
 
     padding 10px
-    background-color #f9f9f9
+    background-color #f2f2f2
     .left
       float left
       width 80%
@@ -196,4 +210,11 @@ legend {
 
 .val
   word-break break-all
+
+.bundle-count-box
+  background-color #E6E9ED
+  display inline-block
+  padding-left 5px
+  padding-right 5px
+  border-radius 4px
 </style>

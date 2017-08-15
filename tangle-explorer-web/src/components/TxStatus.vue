@@ -43,7 +43,7 @@ export default {
 
 <style lang="stylus" scoped>
 .status-pending {
-  color rgb(182, 45, 45)
+  color #E2224B
   font-weight bold
 }
 
@@ -52,7 +52,7 @@ export default {
 }
 
 .status-confirmed {
-  color rgb(48, 168, 24)
+  color #5CC099
   font-weight bold
 }
 </style>

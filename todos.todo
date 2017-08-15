@@ -13,6 +13,7 @@ Improvements:
 ✔ pending i/o display @done(2017-07-19 23:42)
 
 Bugs:
+☐ Pending transactions are not shown. Solution: When all the transactions for a specific bundle are pending, just show the pending one.
 ✔ https://iota.codebuffet.co/#/addr/QAS9RZBKVQIDQ9JCIKP9CGFOKOWQOVCX99RWVEVPCVE9IJOYHRDY9FHGTMKLQO9RUARVMXGGDOVPXCKJHHPQKLCXYU does display dates in not chronological order @done(2017-08-01 12:16)
 ✔ doesn't deal well with bundles which have been reattached multiple times. When checking each receiving address individually, every one of them has a confirmed transaction and the correct balance. (https://iota.codebuffet.co/#/tx/LNWZGIMDPWCUDYUSYMXHWMXNW9IXGNUHJPXJZYGOBJVHPUADTLOXDOCIZNDBMD9PLOHUSJTAWEAQ99999) @done(2017-07-31 19:37)
 ✔ When transactions or addresses are inputted into the search field and enter is pressed before a search result is returned, the page loads an empty transaction vue. Suggest recalling the search function on an empty transaction vue if the /tx or /addr param is set @done(2017-07-31 19:14)

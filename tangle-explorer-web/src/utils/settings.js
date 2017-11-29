@@ -1,6 +1,6 @@
 const store = require('store')
 const defaultSettings = {
-  nodeUrl: 'https://n1.iota.nu:443'
+  nodeUrl: 'https://iota.offline.zone'
 }
 
 export default {

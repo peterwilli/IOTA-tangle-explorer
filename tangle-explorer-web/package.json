@@ -2,7 +2,7 @@
   "name": "tangle-explorer-web",
   "version": "1.0.0",
   "description": "IOTA Tangle Explorer",
-  "author": "Peter <peter@codebuffet.co>",
+  "author": "Peter Willemsen <peter@codebuffet.co>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

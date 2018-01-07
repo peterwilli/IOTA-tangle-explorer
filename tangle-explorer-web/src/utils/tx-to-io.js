@@ -40,6 +40,16 @@ export default async (r) => {
     txHashes.push(tx.hash)
   }
   var confirmedCache = await txsAreConfirmed(txHashes)
+  var showConfirmedOnly = false
+  for(var k in confirmedCache) {
+    if(confirmedCache[k]) {
+      // When none of the transactions are confirmed, we can show unconfirmed ones too.
+      // When there is at least one confirmed transaction, we're better off just showing the confirmed transaction.
+      // Because the rest might be a promote or reattach transaction
+      showConfirmedOnly = true
+      break
+    }
+  }
   for(var i = 0; i < r.length; i++) {
     var tx = r[i]
     if(!res[tx.bundle]) {
@@ -48,17 +58,24 @@ export default async (r) => {
     // Cache is being used for making sure no duplicated transactions from re-attached bundles show up in the i/o gui.
     var cacheKey = `${tx.bundle}${tx.value}${tx.tag}${tx.address}`
     if(txCache[cacheKey] === undefined) {
-      var isConfirmed = confirmedCache[tx.hash]
-      if(isConfirmed) {
-        txCache[cacheKey] = null
-        var isInput = tx.value < 0
-        var isOutput = tx.value > 0
-        if(isInput) {
-          res[tx.bundle].inputs.push(tx)
+      var shouldAdd = false
+      if(showConfirmedOnly) {
+        var isConfirmed = confirmedCache[tx.hash]
+        if(isConfirmed) {
+          shouldAdd = true
         }
-        else if(isOutput) {
-          res[tx.bundle].outputs.push(tx)
-        }
+      }
+      else {
+        shouldAdd = true
+      }
+      txCache[cacheKey] = null
+      var isInput = tx.value < 0
+      var isOutput = tx.value > 0
+      if(isInput) {
+        res[tx.bundle].inputs.push(tx)
+      }
+      else if(isOutput) {
+        res[tx.bundle].outputs.push(tx)
       }
     }
   }

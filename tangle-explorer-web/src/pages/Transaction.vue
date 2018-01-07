@@ -161,8 +161,10 @@ export default {
     getIOFromTX() {
       var _this = this
       iotaNode.iota.api.findTransactionObjects({ bundles: [this.tx.bundle] }, (e, r) => {
+        console.log('eeee', e, r);
         (async() => {
           var ios = await txToIO(r)
+          console.log(ios);
           _this.txIO = ios[0]
         })()
       })

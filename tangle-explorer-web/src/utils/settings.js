@@ -1,6 +1,6 @@
 const store = require('store')
 const defaultSettings = {
-  nodeUrl: 'https://node.iota.dance:443'
+  nodeUrl: 'http://node01.testnet.iotatoken.nl:16265'
 }
 
 export default {

@@ -15,8 +15,7 @@ module.exports = {
     path: config.build.assetsRoot,
     filename: '[name].js',
     publicPath: process.env.NODE_ENV === 'production' ?
-      config.build.assetsPublicPath :
-      config.dev.assetsPublicPath
+      config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -26,33 +25,16 @@ module.exports = {
     }
   },
   module: {
-    rules: [
-      /*{
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('src'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
-        }
-      },*/
-      {
-        test: /ceri-icon\/icon/,
-        enforce: "post",
-        loader: "ceri-icon",
-        options: {
-          icons: [
-            "fa-user",
-            "fa-clock-o",
-            "fa-arrow-right",
-            "fa-search",
-            "fa-expand",
-            "fa-compress",
-            "fa-heart",
-            "fa-gear",
-            "fa-hashtag"
-          ]
-        }
+    rules: [{
+        test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/', // where the fonts will go
+            publicPath: '../' // override the default path
+          }
+        }]
       },
       {
         test: /\.vue$/,

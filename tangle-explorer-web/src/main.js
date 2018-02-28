@@ -14,9 +14,8 @@ require('@/directives/click-outside.js')
 require('@/directives/toast.js')
 
 // Styles (global)
+require('@/styles/font-awesome.scss')
 require('@/styles/layout.styl')
-require("document-register-element")
-window.customElements.define("ceri-icon", require("ceri-icon"))
 
 require('@/lib/identi-qrcode')
 require('@/lib/iota')

@@ -2,10 +2,14 @@ language: node_js
 node_js:
 - '6'
 - '7'
+cache:
+  yarn: true
+  directories:
+    - node_modules
 script:
   - cd tangle-explorer-web
-  - npm install
-  - npm run build
+  - yarn
+  - yarn build
   - tar -cvzf dist.tar.gz dist
 deploy:
   skip_cleanup: true

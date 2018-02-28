@@ -11,15 +11,15 @@
       <span class="txLabel" id="tagLabel">Tag: {{this.txTag}}</span>
       <div class="toolbar">
         <div :title='"Expand the graph to include transactions which directly reference the current transactions"' v-if="network !== null && this.networkLoading === false" class="button inceaseButton" @click="increaseDepth()">
-          <ceri-icon class="increaseIcon" name="fa-plus-square"></ceri-icon><span>Increase Depth</span>
+          <i class="fa fa-plus-square increaseIcon"></i><span>Increase Depth</span>
         </div>
         <div class='button' v-else>
           <pulse-loader :color="'#fff'" size='13px'></pulse-loader>
         </div>
         <div class="right">
           <div class="button" @click="fullscreenToggle()">
-            <ceri-icon v-if="!expanded" name="fa-expand"></ceri-icon>
-            <ceri-icon v-else name="fa-compress"></ceri-icon>
+            <i class="fa fa-expand" v-if="!expanded"></i>
+            <i class="fa fa-compress" v-else ></i>
           </div>
         </div>
       </div>

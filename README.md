@@ -16,9 +16,10 @@ Commands are `displayed like this!`
 
 Assuming you have NodeJS.
 
-- cd to tangle-explorer-web
-- run `npm install`
-- run `npm run dev` and a web browser will pop up with the page.
+- `cd` to tangle-explorer-web
+- if you haven't got Yarn yet, run `npm install -g yarn` (possibly as root)
+- run `yarn`
+- run `yarn dev` and a web browser will pop up with the page.
 
 ## Contributors
 

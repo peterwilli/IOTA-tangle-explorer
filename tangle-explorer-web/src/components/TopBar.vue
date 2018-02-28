@@ -9,7 +9,7 @@
       <div class='right'>
         <div class="bar-button">
           <router-link :to="{ name: 'Settings' }">
-            <ceri-icon size='35' class="icon" name="fa-gear"></ceri-icon>
+            <i class="fa fa-gear icon" size='35'></i>
           </router-link>
         </div>
         <div class='search'>

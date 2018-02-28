@@ -9,7 +9,7 @@
           Transaction Info
         </div>
         <div class="right">
-          <ceri-icon name="fa-clock-o"></ceri-icon> <relative-time :timestamp="tx.timestamp"></relative-time>
+          <i class="fa fa-clock-o"></i> <relative-time :timestamp="tx.timestamp"></relative-time>
         </div>
         <div style="clear:both"></div>
       </div>

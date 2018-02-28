@@ -7,7 +7,7 @@
         <a target="_blank" href="https://github.com/peterwilli/IOTA-tangle-explorer">Source Code</a> |
         <router-link :to="{ name: 'Address', params: { hash: 'LAIIZHTEPOTNLZPAEFFZZGPSC9LQZVLDWZAASJZYYIIWRNWJSPXIGZTRESAAMM9QFTVFY9NTLRIWSMHM9CAGASCSYZ' }}">Developer Donation</router-link>
         <br />
-        Made with <ceri-icon style="color:#f45353" name="fa-heart"></ceri-icon> in The Netherlands
+        Made with <i class="fa fa-heart" style="color:#f45353"></i> in The Netherlands
       </div>
     </div>
   </div>

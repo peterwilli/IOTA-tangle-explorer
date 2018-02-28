@@ -9,7 +9,7 @@
       <div class='right'>
         <div class="bar-button">
           <router-link :to="{ name: 'Settings' }">
-            <i class="fa fa-gear icon" size='35'></i>
+            <i class="fa fa-gear icon" style="font-size: 32px"></i>
           </router-link>
         </div>
         <div class='search'>

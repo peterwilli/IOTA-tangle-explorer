@@ -1,6 +1,6 @@
 const store = require('store')
 const defaultSettings = {
-  nodeUrl: 'https://node.iota.dance:443'
+  nodeUrl: 'https://nodes.thetangle.org:443'
 }
 
 export default {

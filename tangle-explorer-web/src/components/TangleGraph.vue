@@ -32,8 +32,7 @@
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 const vis = require('vis')
 const _ = require('lodash')
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 const $ = require('jquery')
 
 export default {
@@ -42,7 +41,7 @@ export default {
     PulseLoader
   },
   methods: {
-    processLabel(lbl,t) {
+    processLabel(lbl) {
       var len = lbl.length-1;
       if (lbl === this.viewingHash) {
         return `*${lbl.substring(0, 6) + "..." + lbl.substring(len-6, len)}*`
@@ -69,9 +68,9 @@ export default {
       var container = this.$refs.container
       var $container = $(container)
       if(this.expanded) {
-        var offset = $container.offset()
-        var rt = $(window).width() - offset.left - $container.width()
-        var bt = $(window).height() - (offset.top - $(window).scrollTop()) - $container.height()
+        let offset = $container.offset()
+        let rt = $(window).width() - offset.left - $container.width()
+        let bt = $(window).height() - (offset.top - $(window).scrollTop()) - $container.height()
 
         this.oldOffset = {offset, bt, rt}
         this.shouldShowPusher = true
@@ -93,7 +92,7 @@ export default {
         }, 0)
       }
       else {
-        var {offset, bt, rt} = this.oldOffset
+        let {offset, bt, rt} = this.oldOffset
         $container.css({
           left: offset.left + "px",
           top: (offset.top - $(window).scrollTop()) + "px",
@@ -194,7 +193,7 @@ export default {
         return true
       })
 
-      iotaNode.iota.api.getTransactionsObjects(arr, function(e, r) {
+      iotaNode.iota.api.getTransactionObjects(arr, function(e, r) {
         for (var tx of r) {
           _this.txsToRender.push(tx)
         }

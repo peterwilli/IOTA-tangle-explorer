@@ -14,8 +14,7 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 const iotaSearch = require('@/utils/iota-search-engine.js')
 
 import SearchResults from '@/components/SearchResults.vue'

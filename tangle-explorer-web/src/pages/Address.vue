@@ -53,8 +53,7 @@
 </template>
 
 <script>
-  require('@/lib/iota')
-  const iotaNode = require("@/utils/iota-node")
+  const iotaNode = require("@/utils/iota-node").default
   const txToIO = require('@/utils/tx-to-io.js').default
   const _ = require('lodash')
   
@@ -81,7 +80,7 @@
     methods: {
       initAddr() {
         var _this = this
-        iotaNode.iota.api.getBalances([this.$route.params.hash], 20, function(e, r) {
+        iotaNode.iota.api.getBalances([this.$route.params.hash]).then(() => {
           _this.addr.balances = _.map(r.balances, (balance) => {
             return parseInt(balance)
           })

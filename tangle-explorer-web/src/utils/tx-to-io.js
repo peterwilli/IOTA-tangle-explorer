@@ -1,11 +1,10 @@
 const txSort = require('@/utils/tx-sort-timestamp.js')
 const _ = require('lodash')
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 
 var txIsConfirmed = async function(txHash) {
   return new Promise(function(resolve, reject) {
-    iotaNode.iota.api.getLatestInclusion([txHash], function(e, r) {
+    iotaNode.iota.api.getInclusionStates([txHash], function(e, r) {
       resolve(!!r[0])
     })
   })
@@ -15,7 +14,7 @@ var txsAreConfirmed = async function(txHashes) {
   var ret = {}
   var getConfirms = async (txHashes) => {
     return new Promise(function(resolve, reject) {
-      iotaNode.iota.api.getLatestInclusion(txHashes, function(e, r) {
+      iotaNode.iota.api.getInclusionStates(txHashes, function(e, r) {
         resolve(_.map(r, (ri) => {
           return !!ri
         }))

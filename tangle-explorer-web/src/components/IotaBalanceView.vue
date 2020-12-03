@@ -3,8 +3,7 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 
 export default {
   props: {

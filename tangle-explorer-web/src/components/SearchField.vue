@@ -7,17 +7,12 @@
 
 <script>
 const _ = require('lodash')
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
 const iotaSearch = require('@/utils/iota-search-engine.js')
-
-import IotaBalanceView from '@/components/IotaBalanceView.vue'
-import RelativeTime from '@/components/RelativeTime.vue'
 import SearchResults from '@/components/SearchResults.vue'
 
 export default {
   components: {
-    RelativeTime, IotaBalanceView, SearchResults
+    SearchResults
   },
   methods: {
     goTo(name, hash) {

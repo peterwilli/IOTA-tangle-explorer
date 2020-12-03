@@ -1,6 +1,9 @@
 const log = require('@/utils/log')
 const settings = require('@/utils/settings.js').default
 
+import { composeAPI } from '@iota/core'
+import { convertUnits } from '@iota/unit-converter'
+
 // The global object for node info etc.
 var obj = {
   nodeInfo: {
@@ -25,10 +28,21 @@ var obj = {
 }
 
 // Create IOTA instance directly with provider
-var iota = new IOTA({
-    'provider': settings.get().nodeUrl
-});
-obj.iota = iota
+const iota = composeAPI({
+  provider: settings.get().nodeUrl
+})
+
+iota.getNodeInfo()
+    .then(info => console.log(info))
+    .catch(error => {
+        console.log(`Request error: ${error.message}`)
+    })
+obj.iota = {
+  api: iota,
+  utils: {
+    convertUnits
+  }
+}
 
 var refreshNodeInfoTmr = null
 
@@ -44,7 +58,7 @@ obj.unsubscribe = (event) => {
 obj.subscribe = (event) => {
   if(event === "node-info") {
     var refreshNodeInfo = function() {
-      iota.api.getNodeInfo(function(error, success) {
+      iota.getNodeInfo(function(error, success) {
           if (error) {
               log(error);
           } else {
@@ -57,4 +71,4 @@ obj.subscribe = (event) => {
     refreshNodeInfo()
   }
 }
-module.exports = obj
+export default obj

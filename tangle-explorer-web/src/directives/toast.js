@@ -1,6 +1,6 @@
 import Vue from 'vue';
 Vue.directive('toast', {
-  bind: function (el, binding, vnode) {    
+  bind: function (el, binding) {    
     el.event = function(event)
     {        
         if(el == event.target || el.contains(event.target))

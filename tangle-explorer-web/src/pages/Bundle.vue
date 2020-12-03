@@ -23,8 +23,7 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 const txToIO = require('@/utils/tx-to-io.js').default
 const _ = require('lodash')
 import TxIo from '@/components/TXIo.vue'

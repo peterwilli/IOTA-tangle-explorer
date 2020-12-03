@@ -6,8 +6,7 @@
 
 <script>
 import NodeInfo from '@/components/NodeInfo.vue'
-require('@/lib/iota')
-var iotaNode = require("@/utils/iota-node")
+var iotaNode = require("@/utils/iota-node").default
 
 export default {
   components: {

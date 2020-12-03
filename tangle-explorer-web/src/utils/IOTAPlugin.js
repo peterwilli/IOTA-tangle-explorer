@@ -1,6 +1,5 @@
 const moment = require('moment')
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
+const iotaNode = require("@/utils/iota-node").default
 
 export default {
   install(Vue, options) {

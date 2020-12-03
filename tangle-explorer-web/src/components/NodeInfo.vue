@@ -49,8 +49,7 @@
 </template>
 
 <script>
-require('@/lib/iota')
-var iotaNode = require("@/utils/iota-node")
+var iotaNode = require("@/utils/iota-node").default
 
 export default {
   data() {

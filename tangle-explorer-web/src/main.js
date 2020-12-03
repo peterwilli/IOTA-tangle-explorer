@@ -18,8 +18,7 @@ require('@/styles/font-awesome.scss')
 require('@/styles/layout.styl')
 
 require('@/lib/identi-qrcode')
-require('@/lib/iota')
-require("@/utils/iota-node")
+require("@/utils/iota-node").default
 
 Vue.config.productionTip = false
 

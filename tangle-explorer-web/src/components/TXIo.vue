@@ -17,7 +17,7 @@
       </div>
 
       <div class="inputs">
-        <div class="input" v-for="tx in txIO.inputs">
+        <div class="input" v-bind:key="tx.hash" v-for="tx in txIO.inputs">
           <div class="io-link">
             <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :title='tx.address' :to="{ name: 'Address', params: { hash: tx.address }}">{{ tx.address }}</router-link>
             <span class="iota-val" :class="getValColor(tx.value)"><iota-balance-view :value='tx.value'></iota-balance-view></span>
@@ -30,13 +30,13 @@
         <i class="fa fa-arrow-right arrow-icon"></i>
       </div>
       <div class="outputs">
-        <div class="output" v-for="tx in txIO.outputs">
+        <div class="output" v-bind:key="tx.hash" v-for="tx in txIO.outputs">
           <div class="hash">
             <div class="io-link">
               <router-link class="mono-space io-link" :style="$getStyleIO(tx.address, viewingHash)" :title='tx.address' :to="{ name: 'Transaction', params: { hash: tx.hash }}">{{ tx.address }}</router-link>
             </div>
             <span class="iota-val" :class="getValColor(tx.value)"><iota-balance-view :value='tx.value'></iota-balance-view></span>
-            <router-link class="mono-space io-link" :title='tx.hash' :to="{ name: 'Transaction', params: { hash: tx.hash }}"><span class="tx-button">TX</ceri-icon></span></router-link>
+            <router-link class="mono-space io-link" :title='tx.hash' :to="{ name: 'Transaction', params: { hash: tx.hash }}"><span class="tx-button">TX</span></router-link>
           </div>
         </div>
       </div>
@@ -46,18 +46,13 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
-
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
-import IdentiQr from '@/components/IdentiQR.vue'
 import ExpandBox from '@/components/ExpandBox.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 import TxStatus from '@/components/TxStatus.vue'
 
 export default {
   components: {
-    IdentiQr,
     ExpandBox,
     IotaBalanceView,
     RelativeTime,

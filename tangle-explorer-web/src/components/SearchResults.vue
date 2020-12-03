@@ -7,7 +7,7 @@
       </div>
     </div>
 
-    <div class="result" @click="goTo('Transaction', result.hash)" v-for="result in txResults">
+    <div class="result" @click="goTo('Transaction', result.hash)" v-bind:key="result.hash" v-for="result in txResults">
       <div class="cut-text hash">
       <i class="fa fa-hashtag"></i>
       <span class="result-cat">Hash: </span>{{ result.hash }}
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="result" @click="goTo('Address', result.address)" v-for="result in addrResults">
+    <div class="result" @click="goTo('Address', result.address)" v-bind:key="result.address" v-for="result in addrResults">
       <div class="cut-text address">
         <i class="fa fa-user"></i>
         <span class="result-cat">Address: </span>{{ result.address }}
@@ -32,7 +32,7 @@
       </div>
     </div>
 
-    <div class="result" @click="goTo('Bundle', result.hash)" v-for="result in bundleResults">
+    <div class="result" @click="goTo('Bundle', result.hash)" v-bind:key="result.hash" v-for="result in bundleResults">
       <div class="cut-text hash">
         <i class="fa fa-hashtag"></i>
         <span class="result-cat">Bundle: </span>{{ result.hash }}
@@ -43,10 +43,6 @@
 </template>
 
 <script>
-require('@/lib/iota')
-const iotaNode = require("@/utils/iota-node")
-const iotaSearch = require('@/utils/iota-search-engine.js')
-
 import IotaBalanceView from '@/components/IotaBalanceView.vue'
 import RelativeTime from '@/components/RelativeTime.vue'
 

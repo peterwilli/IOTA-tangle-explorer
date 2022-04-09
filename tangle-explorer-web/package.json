@@ -13,7 +13,7 @@
     "core-js": "^3.6.5",
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "store": "^2.0.12",
     "stylus": "^0.54.8",
     "vis": "^4.21.0-EOL",
